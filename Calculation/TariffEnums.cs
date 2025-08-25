@@ -19,7 +19,7 @@ namespace VerificationTask.Calculation
         }
         /*
          * Так как Enum работает только с целочисленными типами, создаю функцию
-         * котора вернет нужное значение по enum
+         * которая вернет тариф по enum
          */
         public static double getDoubleValueTariffEnum(TariffEnum tariffEnum)
         {
@@ -31,6 +31,19 @@ namespace VerificationTask.Calculation
                 case TariffEnum.EE_NIGHT: return 2.31;
                 case TariffEnum.GBC_HEAR_CARRIER: return 35.78;
                 case TariffEnum.GBC_THERMAL_ENERGY: return 998.69;
+                default: return 0.0;
+            }
+        }
+        public static double getDoubleValueNormativEnum(TariffEnum tariffEnum)
+        {
+            switch (tariffEnum)
+            {
+                case TariffEnum.HBC: return 4.85;
+                case TariffEnum.EE_DEFAULT: return 164;
+                case TariffEnum.EE_DAY: return 0;
+                case TariffEnum.EE_NIGHT: return 0;
+                case TariffEnum.GBC_HEAR_CARRIER: return 4.01;
+                case TariffEnum.GBC_THERMAL_ENERGY: return 0.05349;
                 default: return 0.0;
             }
         }

@@ -36,21 +36,17 @@
             labelCountersEE = new Label();
             textBoxCountPerson = new TextBox();
             labelCountPerson = new Label();
-            labelHBC = new Label();
-            labelGBC = new Label();
-            label1 = new Label();
-            textBox1 = new TextBox();
+            textBoxCounterEENight = new TextBox();
             label2 = new Label();
             buttonCalculateHBC = new Button();
-            buttonCalculateGBC = new Button();
-            buttonCalculateEE = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // labelCountersHBC
             // 
             labelCountersHBC.AutoSize = true;
             labelCountersHBC.Font = new Font("Times New Roman", 15.75F);
-            labelCountersHBC.Location = new Point(37, 246);
+            labelCountersHBC.Location = new Point(35, 205);
             labelCountersHBC.Name = "labelCountersHBC";
             labelCountersHBC.Size = new Size(178, 23);
             labelCountersHBC.TabIndex = 0;
@@ -59,7 +55,7 @@
             // textBoxCounterHBC
             // 
             textBoxCounterHBC.Font = new Font("Times New Roman", 15.75F);
-            textBoxCounterHBC.Location = new Point(221, 237);
+            textBoxCounterHBC.Location = new Point(248, 196);
             textBoxCounterHBC.Name = "textBoxCounterHBC";
             textBoxCounterHBC.PlaceholderText = "0.0";
             textBoxCounterHBC.Size = new Size(195, 32);
@@ -69,17 +65,17 @@
             // textBoxCounterGBC
             // 
             textBoxCounterGBC.Font = new Font("Times New Roman", 15.75F);
-            textBoxCounterGBC.Location = new Point(692, 237);
+            textBoxCounterGBC.Location = new Point(246, 250);
             textBoxCounterGBC.Name = "textBoxCounterGBC";
             textBoxCounterGBC.PlaceholderText = "0.0";
-            textBoxCounterGBC.Size = new Size(181, 32);
+            textBoxCounterGBC.Size = new Size(197, 32);
             textBoxCounterGBC.TabIndex = 3;
             // 
             // labelCountersGBC
             // 
             labelCountersGBC.AutoSize = true;
             labelCountersGBC.Font = new Font("Times New Roman", 15.75F);
-            labelCountersGBC.Location = new Point(510, 246);
+            labelCountersGBC.Location = new Point(35, 259);
             labelCountersGBC.Name = "labelCountersGBC";
             labelCountersGBC.Size = new Size(176, 23);
             labelCountersGBC.TabIndex = 2;
@@ -88,29 +84,31 @@
             // textBoxCounterEE
             // 
             textBoxCounterEE.Font = new Font("Times New Roman", 15.75F);
-            textBoxCounterEE.Location = new Point(1214, 237);
+            textBoxCounterEE.Location = new Point(246, 303);
             textBoxCounterEE.Name = "textBoxCounterEE";
-            textBoxCounterEE.Size = new Size(129, 32);
+            textBoxCounterEE.PlaceholderText = "0.0";
+            textBoxCounterEE.Size = new Size(197, 32);
             textBoxCounterEE.TabIndex = 5;
             // 
             // labelCountersEE
             // 
             labelCountersEE.AutoSize = true;
             labelCountersEE.Font = new Font("Times New Roman", 15.75F);
-            labelCountersEE.Location = new Point(1044, 246);
+            labelCountersEE.Location = new Point(35, 312);
             labelCountersEE.Name = "labelCountersEE";
-            labelCountersEE.Size = new Size(164, 23);
+            labelCountersEE.Size = new Size(210, 23);
             labelCountersEE.TabIndex = 4;
-            labelCountersEE.Text = "Показания по ЭЭ";
+            labelCountersEE.Text = "Показания по ЭЭ день";
             // 
             // textBoxCountPerson
             // 
             textBoxCountPerson.Font = new Font("Times New Roman", 15.75F);
             textBoxCountPerson.Location = new Point(291, 54);
             textBoxCountPerson.Name = "textBoxCountPerson";
-            textBoxCountPerson.PlaceholderText = "0";
+            textBoxCountPerson.PlaceholderText = "1";
             textBoxCountPerson.Size = new Size(236, 32);
             textBoxCountPerson.TabIndex = 7;
+            textBoxCountPerson.KeyPress += textBoxCountPerson_KeyPress;
             // 
             // labelCountPerson
             // 
@@ -122,98 +120,55 @@
             labelCountPerson.TabIndex = 6;
             labelCountPerson.Text = "Количество проживающих\r\nв помещении";
             // 
-            // labelHBC
+            // textBoxCounterEENight
             // 
-            labelHBC.AutoSize = true;
-            labelHBC.Font = new Font("Times New Roman", 15.75F);
-            labelHBC.Location = new Point(37, 164);
-            labelHBC.Name = "labelHBC";
-            labelHBC.Size = new Size(379, 23);
-            labelHBC.TabIndex = 8;
-            labelHBC.Text = "Расчет услуги \"Холодное водоснабжение\"";
-            // 
-            // labelGBC
-            // 
-            labelGBC.AutoSize = true;
-            labelGBC.Font = new Font("Times New Roman", 15.75F);
-            labelGBC.Location = new Point(510, 164);
-            labelGBC.Name = "labelGBC";
-            labelGBC.Size = new Size(363, 23);
-            labelGBC.TabIndex = 9;
-            labelGBC.Text = "Расчет услуги \"Горячее водоснабжение\"";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Times New Roman", 15.75F);
-            label1.Location = new Point(1043, 164);
-            label1.Name = "label1";
-            label1.Size = new Size(299, 23);
-            label1.TabIndex = 10;
-            label1.Text = "Расчет услуги \"Электроэнергия \"";
-            // 
-            // textBox1
-            // 
-            textBox1.Font = new Font("Times New Roman", 15.75F);
-            textBox1.Location = new Point(1213, 287);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(129, 32);
-            textBox1.TabIndex = 12;
+            textBoxCounterEENight.Font = new Font("Times New Roman", 15.75F);
+            textBoxCounterEENight.Location = new Point(246, 353);
+            textBoxCounterEENight.Name = "textBoxCounterEENight";
+            textBoxCounterEENight.PlaceholderText = "0.0";
+            textBoxCounterEENight.Size = new Size(197, 32);
+            textBoxCounterEENight.TabIndex = 12;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 15.75F);
-            label2.Location = new Point(1043, 296);
+            label2.Location = new Point(34, 362);
             label2.Name = "label2";
-            label2.Size = new Size(164, 23);
+            label2.Size = new Size(211, 23);
             label2.TabIndex = 11;
-            label2.Text = "Показания по ЭЭ";
+            label2.Text = "Показания по ЭЭ ночь";
             // 
             // buttonCalculateHBC
             // 
             buttonCalculateHBC.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            buttonCalculateHBC.Location = new Point(221, 370);
+            buttonCalculateHBC.Location = new Point(400, 423);
             buttonCalculateHBC.Name = "buttonCalculateHBC";
             buttonCalculateHBC.Size = new Size(195, 41);
             buttonCalculateHBC.TabIndex = 13;
-            buttonCalculateHBC.Text = "Расчитать ХВС";
+            buttonCalculateHBC.Text = "Расчитать";
             buttonCalculateHBC.UseVisualStyleBackColor = true;
             buttonCalculateHBC.Click += buttonCalculateHBC_Click;
             // 
-            // buttonCalculateGBC
+            // label1
             // 
-            buttonCalculateGBC.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            buttonCalculateGBC.Location = new Point(678, 370);
-            buttonCalculateGBC.Name = "buttonCalculateGBC";
-            buttonCalculateGBC.Size = new Size(195, 41);
-            buttonCalculateGBC.TabIndex = 14;
-            buttonCalculateGBC.Text = "Расчитать ХВС";
-            buttonCalculateGBC.UseVisualStyleBackColor = true;
-            // 
-            // buttonCalculateEE
-            // 
-            buttonCalculateEE.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            buttonCalculateEE.Location = new Point(1148, 370);
-            buttonCalculateEE.Name = "buttonCalculateEE";
-            buttonCalculateEE.Size = new Size(195, 41);
-            buttonCalculateEE.TabIndex = 15;
-            buttonCalculateEE.Text = "Расчитать ЭЭ";
-            buttonCalculateEE.UseVisualStyleBackColor = true;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label1.Location = new Point(34, 104);
+            label1.Name = "label1";
+            label1.Size = new Size(451, 64);
+            label1.TabIndex = 14;
+            label1.Text = "Поля услуг для которых не передаются\r\nпоказания - оставить пустыми";
             // 
             // FormCalculator
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1412, 490);
-            Controls.Add(buttonCalculateEE);
-            Controls.Add(buttonCalculateGBC);
-            Controls.Add(buttonCalculateHBC);
-            Controls.Add(textBox1);
-            Controls.Add(label2);
+            ClientSize = new Size(621, 490);
             Controls.Add(label1);
-            Controls.Add(labelGBC);
-            Controls.Add(labelHBC);
+            Controls.Add(buttonCalculateHBC);
+            Controls.Add(textBoxCounterEENight);
+            Controls.Add(label2);
             Controls.Add(textBoxCountPerson);
             Controls.Add(labelCountPerson);
             Controls.Add(textBoxCounterEE);
@@ -238,13 +193,9 @@
         private Label labelCountersEE;
         private TextBox textBoxCountPerson;
         private Label labelCountPerson;
-        private Label labelHBC;
-        private Label labelGBC;
-        private Label label1;
-        private TextBox textBox1;
+        private TextBox textBoxCounterEENight;
         private Label label2;
         private Button buttonCalculateHBC;
-        private Button buttonCalculateGBC;
-        private Button buttonCalculateEE;
+        private Label label1;
     }
 }
