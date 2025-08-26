@@ -70,6 +70,7 @@
             textBoxCounterGBC.PlaceholderText = "0.0";
             textBoxCounterGBC.Size = new Size(197, 32);
             textBoxCounterGBC.TabIndex = 3;
+            textBoxCounterGBC.KeyPress += textBoxCounterGBC_KeyPress;
             // 
             // labelCountersGBC
             // 

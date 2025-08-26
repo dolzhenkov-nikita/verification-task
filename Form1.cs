@@ -23,23 +23,30 @@ namespace VerificationTask
             int personCount = 1;
             if (textBoxCountPerson.Text.Length > 0)
             {
-                personCount=Convert.ToInt32(textBoxCountPerson.Text);
+                personCount = Convert.ToInt32(textBoxCountPerson.Text);
             }
 
             Accrual accrual = new Accrual();
 
             ColdWaterSupply coldWater = new ColdWaterSupply();
+            HotWaterSupply hotWater = new HotWaterSupply();
+            ElectricalEnergy electricalEnergy = new ElectricalEnergy();
 
-            double volumeHBC = coldWater.getVolume(personCount,indicationsForm: textBoxCounterHBC.Text.ToString());
+            double volumeColdWater = coldWater.getVolume(personCount, indicationsForm: textBoxCounterHBC.Text.ToString());
+            double volumeHotWater = hotWater.getVolume(personCount, indicationsForm: textBoxCounterGBC.Text.ToString());
 
-            double utilitiesHBCSum = CalculationAccrual.getCost(volumeHBC, TariffEnum.HBC);
-            coldWater.Setresult(utilitiesHBCSum);
+            double utilitiesColdWaterSum = CalculationAccrual.getCost(volumeColdWater, TariffEnum.HBC);
+            double utilitiesHotWaterSum = CalculationAccrual.getCost(volumeColdWater, TariffEnum.GBC_THERMAL_ENERGY);
+
+            coldWater.Setresult(utilitiesColdWaterSum);
+            hotWater.Result=(utilitiesHotWaterSum);
 
             ConnectionSqlite.InserDataByColdWater(coldWater);
+            ConnectionSqlite.InserDataByHotWater(hotWater);
 
             accrual.SetColdWaterSupply(coldWater);
 
-            MessageBox.Show(utilitiesHBCSum.ToString());
+            MessageBox.Show(utilitiesColdWaterSum.ToString());
         }
 
 
@@ -88,58 +95,65 @@ namespace VerificationTask
             //        " FOREIGN KEY (hot_water_id) REFERENCES HotWater(id)," +
             //        " FOREIGN KEY (electical_id) REFERENCES ElectricalEnergy(id)" +
             //        ");"
-                    //CommandText = "CREATE TABLE IF NOT EXISTS [HotWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
-                    //" [result] REAL NOT NULL," +
-                    //" [tariff_tn] REAL ," +
-                    //" [tariff_te] REAL ," +
-                    //" [normativ_tn] REAL ," +
-                    //" [normativ_te] REAL ," +
-                    //" [volume_tn] REAL NOT NULL ," +
-                    //" [volume_te] REAL NOT NULL ," +
-                    //" [count_person] REAL NOT NULL ," +
-                    //" [indications] REAL NOT NULL);"
-                    //CommandText = "CREATE TABLE IF NOT EXISTS [ElecticalEnergy]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
-                    //" [result] REAL NOT NULL," +
-                    //" [tariff_default] REAL ," +
-                    //" [tariff_day] REAL ," +
-                    //" [tariff_night] REAL ," +
-                    //" [normativ] REAL ," +
-                    //" [volume] REAL NOT NULL ," +
-                    //" [volume_day] REAL NOT NULL ," +
-                    //" [volume_night] REAL NOT NULL ," +
-                    //" [count_person] REAL NOT NULL ," +
-                    //" [indications_default] REAL NOT NULL ," +
-                    //" [indications_day] REAL NOT NULL ," +
-                    //" [indications_night] REAL NOT NULL);"
-                    //CommandText = "CREATE TABLE IF NOT EXISTS [ColdWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
-                    //" [result] REAL NOT NULL," +
-                    //" [tariff] REAL ," +
-                    //" [normativ] REAL ," +
-                    //" [volume] REAL NOT NULL ," +
-                    //" [count_person] REAL NOT NULL ," +
-                    //" [indications] REAL NOT NULL ," +
-                //};
-                //command.ExecuteNonQuery();
-                //MessageBox.Show("Таблица софздана");
+            //CommandText = "CREATE TABLE IF NOT EXISTS [HotWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
+            //" [result] REAL NOT NULL," +
+            //" [tariff_tn] REAL ," +
+            //" [tariff_te] REAL ," +
+            //" [normativ_tn] REAL ," +
+            //" [normativ_te] REAL ," +
+            //" [volume_tn] REAL NOT NULL ," +
+            //" [volume_te] REAL NOT NULL ," +
+            //" [count_person] REAL NOT NULL ," +
+            //" [indications] REAL NOT NULL);"
+            //CommandText = "CREATE TABLE IF NOT EXISTS [ElecticalEnergy]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
+            //" [result] REAL NOT NULL," +
+            //" [tariff_default] REAL ," +
+            //" [tariff_day] REAL ," +
+            //" [tariff_night] REAL ," +
+            //" [normativ] REAL ," +
+            //" [volume] REAL NOT NULL ," +
+            //" [volume_day] REAL NOT NULL ," +
+            //" [volume_night] REAL NOT NULL ," +
+            //" [count_person] REAL NOT NULL ," +
+            //" [indications_default] REAL NOT NULL ," +
+            //" [indications_day] REAL NOT NULL ," +
+            //" [indications_night] REAL NOT NULL);"
+            //CommandText = "CREATE TABLE IF NOT EXISTS [ColdWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
+            //" [result] REAL NOT NULL," +
+            //" [tariff] REAL ," +
+            //" [normativ] REAL ," +
+            //" [volume] REAL NOT NULL ," +
+            //" [count_person] REAL NOT NULL ," +
+            //" [indications] REAL NOT NULL ," +
+            //};
+            //command.ExecuteNonQuery();
+            //MessageBox.Show("Таблица софздана");
 
-                //command.CommandText = "INSERT INTO Accrual (type_id, result, tariff_one, volume_one, indications_one) VALUES (1, 21.0, 22.0, 23.0, 24.0)";
+            //command.CommandText = "INSERT INTO Accrual (type_id, result, tariff_one, volume_one, indications_one) VALUES (1, 21.0, 22.0, 23.0, 24.0)";
 
-                //command.ExecuteNonQuery();
-                //command = new SQLiteCommand(connection)
-                //{
-                //    CommandText = "SELECT * FROM Accrual"
-                //};
-                //DataTable data = new DataTable();
-                //SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
-                //adapter.Fill(data);
-                //MessageBox.Show($"Прочитано {data.Rows.Count} записей из таблицы БД");
-                //foreach (DataRow row in data.Rows)
-                //{
-                //    MessageBox.Show($"id = {row.Field<long>("id")} result = {row.Field<double>("result")} volume_one = {row.Field<double>("volume_one")}");
-                //}
+            //command.ExecuteNonQuery();
+            //command = new SQLiteCommand(connection)
+            //{
+            //    CommandText = "SELECT * FROM Accrual"
+            //};
+            //DataTable data = new DataTable();
+            //SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            //adapter.Fill(data);
+            //MessageBox.Show($"Прочитано {data.Rows.Count} записей из таблицы БД");
+            //foreach (DataRow row in data.Rows)
+            //{
+            //    MessageBox.Show($"id = {row.Field<long>("id")} result = {row.Field<double>("result")} volume_one = {row.Field<double>("volume_one")}");
+            //}
             //}
             //connection.Close();
 
+        }
+
+        private void textBoxCounterGBC_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsNumber(e.KeyChar)) return;
+            else
+                e.Handled = true;
         }
     }
 }

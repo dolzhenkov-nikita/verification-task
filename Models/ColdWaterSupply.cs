@@ -35,7 +35,7 @@ namespace VerificationTask.Models
             }
             else
             {
-                double oldIndications = ConnectionSqlite.GetIndicationDataByColdWater();
+                double oldIndications = ConnectionSqlite.GetIndicationDataByWater("ColdWater");
                 newIndications = indications - oldIndications;
                 result = newIndications;
 

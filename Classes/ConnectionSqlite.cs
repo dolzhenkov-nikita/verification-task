@@ -14,9 +14,33 @@ namespace VerificationTask.Classes
         static SQLiteConnection connection;
         static SQLiteCommand command;
 
-        public static void InserDataByColdWater(ColdWaterSupply coldWaterSupply)
+
+        public static double GetIndicationDataByWater(string table)
         {
-            string dbPath = Path.Combine(currentDirectory, "utilites.db");
+            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            double indications = 0.0;
+
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                string selectSql = $"SELECT indications FROM {table} where indications<>0 ORDER BY ID DESC LIMIT 1";
+                using (var command = new SqliteCommand(selectSql, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            indications = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+            return indications;
+        }
+
+         public static void InserDataByColdWater(ColdWaterSupply coldWaterSupply)
+        {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
 
 
@@ -40,29 +64,34 @@ namespace VerificationTask.Classes
                 }
             }
         }
-        public static double GetIndicationDataByColdWater()
+        public static void InserDataByHotWater(HotWaterSupply coldWaterSupply)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
-            double indications=0.0;
 
 
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
-                string selectSql = "SELECT indications FROM ColdWater where indications<>0 ORDER BY ID DESC LIMIT 1";
-                using (var command = new SqliteCommand(selectSql, connection))
+                string insertSql = "INSERT INTO HotWater ( result, tariff_tn,tariff_te,normativ_tn,normativ_te, volume_tn,volume_te,count_person, indications) " +
+                                  "VALUES ( @result, @tariff_tn,@tariff_te, @normativ_tn,@normativ_te, @volume_tn,@volume_te, @count_person, @indications)";
+
+                using (var command = new SqliteCommand(insertSql, connection))
                 {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                             indications = reader.GetInt32(0);
-                        }
-                    }
+                    command.Parameters.AddWithValue("@result", coldWaterSupply.Result);
+                    command.Parameters.AddWithValue("@tariff_tn", coldWaterSupply.TariffTN);
+                    command.Parameters.AddWithValue("@tariff_te", coldWaterSupply.TariffTE);
+                    command.Parameters.AddWithValue("@normativ_tn", coldWaterSupply.NormativTN);
+                    command.Parameters.AddWithValue("@normativ_te", coldWaterSupply.NormativTE);
+                    command.Parameters.AddWithValue("@volume_tn", coldWaterSupply.VolumeTN);
+                    command.Parameters.AddWithValue("@volume_te", coldWaterSupply.VolumeTE);
+                    command.Parameters.AddWithValue("@count_person", coldWaterSupply.CountPerson);
+                    command.Parameters.AddWithValue("@indications", coldWaterSupply.Indications);
+
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Данные успешно добавлены!");
                 }
             }
-            return indications;
         }
     }
-   
 }
+
