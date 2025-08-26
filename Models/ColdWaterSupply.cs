@@ -18,32 +18,33 @@ namespace VerificationTask.Models
         private int count_person;
         private double indications;
 
-        public double getVolume(int personCount = 1, string counter = "0.0")
+        public double getVolume(int personCount, string indicationsForm)
         {
-            double counterHBC = 0.0;
             double result = 0.0;
+            double newIndications = 0.0;
+            int indications = 0;
             double normative = TariffEnums.getDoubleValueNormativEnum(TariffEnum.HBC);
 
-            bool chekedText = CheckText.checkingTextForConverToDouble(counter);
-            if (chekedText == true)
+            if (indicationsForm.Length > 0)
             {
-                counterHBC = Convert.ToDouble(counter);
+                indications = Convert.ToInt32(indicationsForm);
             }
-
-            if (counterHBC == 0.0)
+            if (indications == 0.0)
             {
                 result = personCount * normative;
             }
             else
             {
-                double oldCounter = ConnectionSqlite.GetIndicationDataByColdWater();
-                result = counterHBC - oldCounter;
+                double oldIndications = ConnectionSqlite.GetIndicationDataByColdWater();
+                newIndications = indications - oldIndications;
+                result = newIndications;
 
             }
             this.Setcount_person(personCount);
             this.Setnormativ(normative);
             this.Settariff(TariffEnums.getDoubleValueTariffEnum(TariffEnum.HBC));
             this.Setvolume(result);
+            this.Setindications(indications);
 
             return result;
         }

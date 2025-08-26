@@ -20,11 +20,17 @@ namespace VerificationTask
 
         private void buttonCalculateHBC_Click(object sender, EventArgs e)
         {
+            int personCount = 1;
+            if (textBoxCountPerson.Text.Length > 0)
+            {
+                personCount=Convert.ToInt32(textBoxCountPerson.Text);
+            }
+
             Accrual accrual = new Accrual();
 
             ColdWaterSupply coldWater = new ColdWaterSupply();
 
-            double volumeHBC = coldWater.getVolume(counter: textBoxCounterHBC.Text.ToString());
+            double volumeHBC = coldWater.getVolume(personCount,indicationsForm: textBoxCounterHBC.Text.ToString());
 
             double utilitiesHBCSum = CalculationAccrual.getCost(volumeHBC, TariffEnum.HBC);
             coldWater.Setresult(utilitiesHBCSum);
@@ -39,7 +45,7 @@ namespace VerificationTask
 
         private void textBoxCounterHBC_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar) | e.KeyChar == Convert.ToChar(".")) return;
+            if (Char.IsNumber(e.KeyChar)) return;
             else
                 e.Handled = true;
         }

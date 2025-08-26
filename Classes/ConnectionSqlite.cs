@@ -48,14 +48,14 @@ namespace VerificationTask.Classes
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
-                string selectSql = "SELECT * FROM ColdWater ORDER BY ID DESC LIMIT 1";
+                string selectSql = "SELECT indications FROM ColdWater where indications<>0 ORDER BY ID DESC LIMIT 1";
                 using (var command = new SqliteCommand(selectSql, connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                             indications = reader.GetDouble(4);
+                             indications = reader.GetInt32(0);
                         }
                     }
                 }
