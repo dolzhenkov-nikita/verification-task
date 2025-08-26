@@ -16,6 +16,7 @@ namespace VerificationTask.Classes
 
         public static void InserDataByColdWater(ColdWaterSupply coldWaterSupply)
         {
+            string dbPath = Path.Combine(currentDirectory, "utilites.db");
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
 
 
