@@ -179,6 +179,7 @@
             Controls.Add(labelCountersHBC);
             Name = "FormCalculator";
             Text = "Расчет коммунальных услуг";
+            Load += FormCalculator_Load;
             ResumeLayout(false);
             PerformLayout();
         }

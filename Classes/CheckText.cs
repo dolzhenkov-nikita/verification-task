@@ -10,7 +10,7 @@ namespace VerificationTask.Classes
     internal class CheckText
     {
         public static bool checkingTextForConverToDouble(string textBoxCounterHBC) {
-            Regex regex = new Regex(@"^-?\d+(\.\d+)?$");
+            Regex regex = new Regex(@"^?\d+(\.\d+)?$");
             MatchCollection matches = regex.Matches(textBoxCounterHBC);
             return matches.Count > 0;
         }
