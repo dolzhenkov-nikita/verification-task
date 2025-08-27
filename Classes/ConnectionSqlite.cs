@@ -122,12 +122,14 @@ namespace VerificationTask.Classes
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
-                string insertSql = "INSERT INTO HotWater ( result, tariff_tn,tariff_te,normativ_tn,normativ_te, volume_tn,volume_te,count_person, indications) " +
-                                  "VALUES ( @result, @tariff_tn,@tariff_te, @normativ_tn,@normativ_te, @volume_tn,@volume_te, @count_person, @indications)";
+                string insertSql = "INSERT INTO HotWater ( result,result_tn,result_te, tariff_tn,tariff_te,normativ_tn,normativ_te, volume_tn,volume_te,count_person, indications) " +
+                                  "VALUES ( @result,@result_tn,@result_te ,@tariff_tn,@tariff_te, @normativ_tn,@normativ_te, @volume_tn,@volume_te, @count_person, @indications)";
 
                 using (var command = new SqliteCommand(insertSql, connection))
                 {
                     command.Parameters.AddWithValue("@result", hotWaterSupply.Result);
+                    command.Parameters.AddWithValue("@result_tn", hotWaterSupply.ResultTN);
+                    command.Parameters.AddWithValue("@result_te", hotWaterSupply.ResultTE);
                     command.Parameters.AddWithValue("@tariff_tn", hotWaterSupply.TariffTN);
                     command.Parameters.AddWithValue("@tariff_te", hotWaterSupply.TariffTE);
                     command.Parameters.AddWithValue("@normativ_tn", hotWaterSupply.NormativTN);

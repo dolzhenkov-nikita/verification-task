@@ -13,6 +13,8 @@ namespace VerificationTask.Models
     {
         public int Id {  get; set; }
         public double Result {  get; set; }
+        public double ResultTN {  get; set; }
+        public double ResultTE {  get; set; }
         public double TariffTN { get; set; }
         public double TariffTE { get; set; }
         public double NormativTN { get; set; }
@@ -25,13 +27,23 @@ namespace VerificationTask.Models
         /*
          * Расчет обьема потребления
          * */
-        public double getVolume(int personCount, string indicationsForm)
+        public double getVolumeTE()
+        {
+            double normative_te = TariffEnums.getDoubleValueNormativEnum(TariffEnum.GBC_THERMAL_ENERGY);
+
+            VolumeTE = VolumeTN * normative_te;
+
+            this.NormativTE=(normative_te);
+            this.TariffTE=(TariffEnums.getDoubleValueTariffEnum(TariffEnum.GBC_THERMAL_ENERGY));
+
+            return VolumeTE;
+        }
+        public double getVolumeTN(int personCount, string indicationsForm)
         {
             double result = 0.0;
             double newIndications = 0.0;
             double indications = 0.0;
             double normative_tn = TariffEnums.getDoubleValueNormativEnum(TariffEnum.GBC_HEAR_CARRIER);
-            double normative_te = TariffEnums.getDoubleValueNormativEnum(TariffEnum.GBC_THERMAL_ENERGY);
 
             if (indicationsForm.Length > 0)
             {
@@ -41,25 +53,20 @@ namespace VerificationTask.Models
             if (indications == 0.0)
             {
                 VolumeTN = personCount * normative_tn;
-                VolumeTE = VolumeTN * normative_te;
-                result = VolumeTE;
             }
             else
             {
                 double oldIndications = ConnectionSqlite.GetIndicationDataByWater("HotWater");
                 newIndications = indications - oldIndications;
-                VolumeTE = VolumeTN * normative_te;
-                result = VolumeTE;
+                VolumeTN = newIndications;
 
             }
             this.CountPerson=(personCount);
             this.NormativTN=(normative_tn);
-            this.NormativTE=(normative_te);
             this.TariffTN=(TariffEnums.getDoubleValueTariffEnum(TariffEnum.GBC_HEAR_CARRIER));
-            this.TariffTE=(TariffEnums.getDoubleValueTariffEnum(TariffEnum.GBC_THERMAL_ENERGY));
             this.Indications=(indications);
 
-            return result;
+            return VolumeTN;
         }
     }
 

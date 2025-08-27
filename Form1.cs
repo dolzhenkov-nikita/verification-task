@@ -53,7 +53,10 @@ namespace VerificationTask
              */
 
             double volumeColdWater = coldWater.getVolume(personCount, indicationsForm: textBoxCounterHBC.Text.ToString());
-            double volumeHotWater = hotWater.getVolume(personCount, indicationsForm: textBoxCounterGBC.Text.ToString());
+
+            double volumeHotWaterTN = hotWater.getVolumeTN(personCount, indicationsForm: textBoxCounterGBC.Text.ToString());
+            double volumeHotWaterTE = hotWater.getVolumeTE();
+
             electricalEnergy.getResult(personCount,
                                             indicationsFormDay: textBoxCounterEE.Text.ToString(),
                                             indicationsFormNight: textBoxCounterEENight.Text.ToString());
@@ -63,14 +66,17 @@ namespace VerificationTask
            */
 
             double utilitiesColdWaterSum = CalculationAccrual.getCost(volumeColdWater, TariffEnum.HBC);
-            double utilitiesHotWaterSum = CalculationAccrual.getCost(volumeColdWater, TariffEnum.GBC_THERMAL_ENERGY);
+            double utilitiesHotWaterSumTN = CalculationAccrual.getCost(volumeHotWaterTN, TariffEnum.GBC_HEAR_CARRIER);
+            double utilitiesHotWaterSumTE = CalculationAccrual.getCost(volumeHotWaterTE, TariffEnum.GBC_THERMAL_ENERGY);
 
             /*
              * —охран€ем полученные результаты в экзмпл€ры
              */
 
             coldWater.Setresult(utilitiesColdWaterSum);
-            hotWater.Result = (utilitiesHotWaterSum);
+            hotWater.ResultTN = (utilitiesHotWaterSumTN);
+            hotWater.ResultTE = (utilitiesHotWaterSumTE);
+            hotWater.Result = (hotWater.ResultTN + hotWater.ResultTE);
 
 
             /*
@@ -135,6 +141,8 @@ namespace VerificationTask
             //        ");"
             //CommandText = "CREATE TABLE IF NOT EXISTS [HotWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
             //" [result] REAL NOT NULL," +
+            //" [result_tn] REAL NOT NULL," +
+            //" [result_te] REAL NOT NULL," +
             //" [tariff_tn] REAL ," +
             //" [tariff_te] REAL ," +
             //" [normativ_tn] REAL ," +
