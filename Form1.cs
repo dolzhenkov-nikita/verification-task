@@ -242,10 +242,17 @@ namespace VerificationTask
             /*
            * Сохраняем полученные результаты в базу (временно здесь)
            */
+            try
+            {
+                ConnectionSqlite.InserDataByColdWater(accrual.GetColdWaterSupply());
+                ConnectionSqlite.InserDataByHotWater(accrual.GetHotWaterSupply());
+                ConnectionSqlite.InserDataToElecticalEnergy(accrual.GetElectricalEnergy());
+            }
+            catch {
+                MessageBox.Show("Ошибка сохранения");
 
-            ConnectionSqlite.InserDataByColdWater(accrual.GetColdWaterSupply());
-            ConnectionSqlite.InserDataByHotWater(accrual.GetHotWaterSupply());
-            ConnectionSqlite.InserDataToElecticalEnergy(accrual.GetElectricalEnergy());
+            }
+            MessageBox.Show("Данные сохранены");
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
