@@ -14,7 +14,8 @@ namespace VerificationTask
     public partial class FormCalculator : Form
     {
         Accrual accrual = new Accrual();
-
+        static SQLiteConnection connection;
+        static SQLiteCommand command;
         public FormCalculator()
         {
             InitializeComponent();
@@ -80,7 +81,7 @@ namespace VerificationTask
             accrual.SetHotWaterSupply(hotWater);
             accrual.SetElectricalEnergy(electricalEnergy);
 
-            double sumAccrual= accrual.CalculateSum();
+            double sumAccrual = accrual.CalculateSum();
             accrual.SetsumAccrual(sumAccrual);
 
             accrual.ShowData(dataGridViewShowResults);
@@ -90,7 +91,7 @@ namespace VerificationTask
 
         private void textBoxCounterHBC_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
+            if (CheckText.checkingText(e)) return;
             else
                 e.Handled = true;
         }
@@ -101,8 +102,7 @@ namespace VerificationTask
             else
                 e.Handled = true;
         }
-        static SQLiteConnection connection;
-        static SQLiteCommand command;
+
         static public bool Connect()
         {
             try
@@ -142,7 +142,7 @@ namespace VerificationTask
             //" [volume_tn] REAL NOT NULL ," +
             //" [volume_te] REAL NOT NULL ," +
             //" [count_person] INTEGER NOT NULL ," +
-            //" [indications] INTEGER NOT NULL);"
+            //" [indications] REAL NOT NULL);"
             //CommandText = "CREATE TABLE IF NOT EXISTS [ElecticalEnergy]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
             //" [result] REAL NOT NULL," +
             //" [result_day] REAL NOT NULL," +
@@ -155,16 +155,16 @@ namespace VerificationTask
             //" [volume_day] REAL NOT NULL ," +
             //" [volume_night] REAL NOT NULL ," +
             //" [count_person] INTEGER NOT NULL ," +
-            //" [indications_default] INTEGER NOT NULL ," +
-            //" [indications_day] INTEGER NOT NULL ," +
-            //" [indications_night] INTEGER NOT NULL);"
+            //" [indications_default] REAL NOT NULL ," +
+            //" [indications_day] REAL NOT NULL ," +
+            //" [indications_night] REAL NOT NULL);"
             //CommandText = "CREATE TABLE IF NOT EXISTS [ColdWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
             //" [result] REAL NOT NULL," +
             //" [tariff] REAL ," +
             //" [normativ] REAL ," +
             //" [volume] REAL NOT NULL ," +
             //" [count_person] INTEGER NOT NULL ," +
-            //" [indications] INTEGER NOT NULL ," +
+            //" [indications] REAL NOT NULL ," +
             //};
             //command.ExecuteNonQuery();
             //MessageBox.Show("Таблица софздана");
@@ -184,27 +184,29 @@ namespace VerificationTask
 
         private void textBoxCounterGBC_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
+            if (CheckText.checkingText(e)) return;
             else
                 e.Handled = true;
         }
 
         private void textBoxCounterEE_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
+            if (CheckText.checkingText(e)) return;
             else
                 e.Handled = true;
         }
 
         private void textBoxCounterEENight_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
+            if (CheckText.checkingText(e)) return;
             else
                 e.Handled = true;
         }
 
         private void textBoxCounterEE_TextChanged(object sender, EventArgs e)
         {
+            CheckText.checkingOnPointText(textBoxCounterEE);
+
             if (string.IsNullOrEmpty(textBoxCounterEENight.Text))
             {
                 return;
@@ -223,6 +225,8 @@ namespace VerificationTask
 
         private void textBoxCounterEENight_TextChanged(object sender, EventArgs e)
         {
+            CheckText.checkingOnPointText(textBoxCounterEENight);
+
             if (!string.IsNullOrEmpty(textBoxCounterEENight.Text))
             {
                 if (string.IsNullOrEmpty(textBoxCounterEE.Text))
@@ -239,10 +243,10 @@ namespace VerificationTask
             /*
            * Сохраняем полученные результаты в базу (временно здесь)
            */
-                ConnectionSqlite.InserDataByColdWater(accrual.GetColdWaterSupply());
-                ConnectionSqlite.InserDataByHotWater(accrual.GetHotWaterSupply());
-                ConnectionSqlite.InserDataToElecticalEnergy(accrual.GetElectricalEnergy());
-                ConnectionSqlite.InserDataToAccrual(accrual);
+            ConnectionSqlite.InserDataByColdWater(accrual.GetColdWaterSupply());
+            ConnectionSqlite.InserDataByHotWater(accrual.GetHotWaterSupply());
+            ConnectionSqlite.InserDataToElecticalEnergy(accrual.GetElectricalEnergy());
+            ConnectionSqlite.InserDataToAccrual(accrual);
 
             MessageBox.Show("Данные сохранены");
         }
@@ -250,12 +254,23 @@ namespace VerificationTask
         private void buttonReset_Click(object sender, EventArgs e)
         {
             dataGridViewShowResults.Rows.Clear();
-            dataGridViewShowResults.Visible=false;
+            dataGridViewShowResults.Visible = false;
             textBoxCounterEE.Clear();
             textBoxCounterEENight.Clear();
             textBoxCounterGBC.Clear();
             textBoxCounterHBC.Clear();
             textBoxCountPerson.Clear();
+        }
+
+        private void textBoxCounterHBC_TextChanged(object sender, EventArgs e)
+        {
+            CheckText.checkingOnPointText(textBoxCounterHBC);
+        }
+
+        private void textBoxCounterGBC_TextChanged(object sender, EventArgs e)
+        {
+            CheckText.checkingOnPointText(textBoxCounterGBC);
+
         }
     }
 }

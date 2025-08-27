@@ -23,9 +23,9 @@ namespace VerificationTask.Models
        public double VolumeDay { get; set; }
        public double VolumeNight { get; set; }
        public int CountPerson { get; set; }
-       public int IndicationsDefault { get; set; }
-       public int IndicationsDay { get; set; }
-       public int IndicationsNight { get; set; }
+       public double IndicationsDefault { get; set; }
+       public double IndicationsDay { get; set; }
+       public double IndicationsNight { get; set; }
 
         /*
          * Расчитываем опату электроэнергии
@@ -33,19 +33,21 @@ namespace VerificationTask.Models
         public void getResult(int personCount, string indicationsFormDay, string indicationsFormNight)
         {
 
-            int indications = 0;
-            int indicationsNight = 0;
+            double indications = 0.0;
+            double indications_day = 0.0;
+            double indicationsNight = 0.0;
             /*
              * Проверяе и ковентрируем показания за день и ночь
              */
             if (indicationsFormDay.Length > 0)
             {
-                indications = Convert.ToInt32(indicationsFormDay);
+                indications = Convert.ToDouble(indicationsFormDay);
+                indications_day = indications;
             }
 
             if (indicationsFormNight.Length > 0)
             {
-                indicationsNight = Convert.ToInt32(indicationsFormNight);
+                indicationsNight = Convert.ToDouble(indicationsFormNight);
             }
 
             /*
@@ -59,7 +61,7 @@ namespace VerificationTask.Models
              *  Если есть показания за ночь, то есть и за день
              *  тогда расчитываем оплату за день и ночь и их сумму
              */
-            if (indicationsNight != 0)
+            if (indicationsNight != 0.0)
             {
                 double oldIndicationDay = ConnectionSqlite.GetIndicationDataByFieldNameAndTableName("ElectricalEnergy","indications_day");
                 double oldIndicationNight = ConnectionSqlite.GetIndicationDataByFieldNameAndTableName("ElectricalEnergy", "indications_night");
@@ -81,23 +83,23 @@ namespace VerificationTask.Models
              *  Если есть показания за день, но нет за ночь
              *  тогда расчитываем оплату за день по тарифу?
              */
-            else if (indications != 0 && indicationsNight == 0)
+            else if (indications != 0.0 && indicationsNight == 0.0)
             {
                 double oldIndication = ConnectionSqlite.GetIndicationDataByFieldNameAndTableName("ElectricalEnergy", "indications_default");
 
                 Volume = indications - oldIndication;
-                Result = CalculationAccrual.getCost(VolumeNight, TariffEnum.EE_DEFAULT);
+                Result = CalculationAccrual.getCost(Volume, TariffEnum.EE_DEFAULT);
             }
 
             /*
              * Если нет показаний то расчитываем формулу без показанйи
              */
-            else if (indications == 0 && indicationsNight == 0)
+            else if (indications == 0.0 && indicationsNight == 0.0)
             {
                 double oldIndication = ConnectionSqlite.GetIndicationDataByFieldNameAndTableName("ElectricalEnergy", "indications_default");
 
                 Volume = personCount * Normativ;
-                Result = CalculationAccrual.getCost(VolumeNight, TariffEnum.EE_DEFAULT);
+                Result = CalculationAccrual.getCost(Volume, TariffEnum.EE_DEFAULT);
             }
 
             this.CountPerson = (personCount);

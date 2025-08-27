@@ -18,7 +18,7 @@ namespace VerificationTask.Models
         private double normativ;
         private double volume;
         private int count_person;
-        private int indications;
+        private double indications;
 
         /*
          * Расчет обьема потребления
@@ -27,13 +27,13 @@ namespace VerificationTask.Models
         {
             double result = 0.0;
             double newIndications = 0;
-            int indications = 0;
+            double indications = 0;
             double normative = TariffEnums.getDoubleValueNormativEnum(TariffEnum.HBC);
             double oldIndications = ConnectionSqlite.GetIndicationDataByWater("ColdWater");
 
             if (indicationsForm.Length > 0)
             {
-                indications = Convert.ToInt32(indicationsForm);
+                indications =  Convert.ToDouble(indicationsForm);
             }
             if (indications == 0)
             {
@@ -112,12 +112,12 @@ namespace VerificationTask.Models
             count_person = value;
         }
 
-        public int Getindications()
+        public double Getindications()
         {
             return indications;
         }
 
-        public void Setindications(int value)
+        public void Setindications(double value)
         {
             indications = value;
         }

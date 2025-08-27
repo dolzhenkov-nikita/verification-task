@@ -65,6 +65,7 @@
             textBoxCounterHBC.PlaceholderText = "0.0";
             textBoxCounterHBC.Size = new Size(195, 32);
             textBoxCounterHBC.TabIndex = 1;
+            textBoxCounterHBC.TextChanged += textBoxCounterHBC_TextChanged;
             textBoxCounterHBC.KeyPress += textBoxCounterHBC_KeyPress;
             // 
             // textBoxCounterGBC
@@ -75,6 +76,7 @@
             textBoxCounterGBC.PlaceholderText = "0.0";
             textBoxCounterGBC.Size = new Size(197, 32);
             textBoxCounterGBC.TabIndex = 3;
+            textBoxCounterGBC.TextChanged += textBoxCounterGBC_TextChanged;
             textBoxCounterGBC.KeyPress += textBoxCounterGBC_KeyPress;
             // 
             // labelCountersGBC
@@ -216,7 +218,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1056, 448);
+            ClientSize = new Size(1070, 456);
             Controls.Add(buttonSave);
             Controls.Add(buttonReset);
             Controls.Add(dataGridViewShowResults);
