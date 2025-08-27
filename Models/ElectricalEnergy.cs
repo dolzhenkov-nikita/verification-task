@@ -26,7 +26,9 @@ namespace VerificationTask.Models
        public int IndicationsDay { get; set; }
        public int IndicationsNight { get; set; }
 
-
+        /*
+         * Расчитываем опату электроэнергии
+         * */
         public void getResult(int personCount, string indicationsFormDay, string indicationsFormNight)
         {
 

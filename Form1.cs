@@ -79,16 +79,8 @@ namespace VerificationTask
             accrual.SetColdWaterSupply(coldWater);
             accrual.SetHotWaterSupply(hotWater);
             accrual.SetElectricalEnergy(electricalEnergy);
+            accrual.ShowData(dataGridViewShowResults);
 
-            /*
-            * Сохраняем полученные результаты в базу (временно здесь)
-            */
-
-            ConnectionSqlite.InserDataByColdWater(accrual.GetColdWaterSupply());
-            ConnectionSqlite.InserDataByHotWater(accrual.GetHotWaterSupply());
-            ConnectionSqlite.InserDataToElecticalEnergy(accrual.GetElectricalEnergy());
-
-            MessageBox.Show(utilitiesColdWaterSum.ToString());
         }
 
 
@@ -243,6 +235,28 @@ namespace VerificationTask
                     textBoxCounterEENight.Clear();
                 }
             }
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            /*
+           * Сохраняем полученные результаты в базу (временно здесь)
+           */
+
+            ConnectionSqlite.InserDataByColdWater(accrual.GetColdWaterSupply());
+            ConnectionSqlite.InserDataByHotWater(accrual.GetHotWaterSupply());
+            ConnectionSqlite.InserDataToElecticalEnergy(accrual.GetElectricalEnergy());
+        }
+
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            dataGridViewShowResults.Rows.Clear();
+            dataGridViewShowResults.Visible=false;
+            textBoxCounterEE.Clear();
+            textBoxCounterEENight.Clear();
+            textBoxCounterGBC.Clear();
+            textBoxCounterHBC.Clear();
+            textBoxCountPerson.Clear();
         }
     }
 }

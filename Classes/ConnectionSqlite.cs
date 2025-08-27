@@ -14,6 +14,11 @@ namespace VerificationTask.Classes
         static SQLiteConnection connection;
         static SQLiteCommand command;
 
+
+        /*
+         * Получение предыдущих показаний из указанной таблицы 
+         * Так как в таблицах имя поля может отличатся, то добавлен параметр field
+         */
         public static double GetIndicationDataByFieldNameAndTableName(string table,string field)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
@@ -37,6 +42,9 @@ namespace VerificationTask.Classes
             }
             return indications;
         }
+        /*
+         * ПОлучение предыдущих показаний для воды с указанием таблицы
+         * */
         public static double GetIndicationDataByWater(string table)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
@@ -60,7 +68,9 @@ namespace VerificationTask.Classes
             }
             return indications;
         }
-
+        /*
+         * Вставляем данные холодной воды в базу данных
+         */
          public static void InserDataByColdWater(ColdWaterSupply coldWaterSupply)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
@@ -86,6 +96,9 @@ namespace VerificationTask.Classes
                 }
             }
         }
+        /*
+         * Вставляем данные горячей воды в базу данных
+         */
         public static void InserDataByHotWater(HotWaterSupply coldWaterSupply)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
@@ -114,6 +127,9 @@ namespace VerificationTask.Classes
                 }
             }
         }
+        /*
+         * Вставляем данные электроэнергии в базу данных
+         */
         public static void InserDataToElecticalEnergy(ElectricalEnergy electricalEnergy)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";

@@ -40,13 +40,17 @@
             label2 = new Label();
             buttonCalculateHBC = new Button();
             label1 = new Label();
+            dataGridViewShowResults = new DataGridView();
+            buttonReset = new Button();
+            buttonSave = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewShowResults).BeginInit();
             SuspendLayout();
             // 
             // labelCountersHBC
             // 
             labelCountersHBC.AutoSize = true;
             labelCountersHBC.Font = new Font("Times New Roman", 15.75F);
-            labelCountersHBC.Location = new Point(35, 205);
+            labelCountersHBC.Location = new Point(48, 226);
             labelCountersHBC.Name = "labelCountersHBC";
             labelCountersHBC.Size = new Size(178, 23);
             labelCountersHBC.TabIndex = 0;
@@ -55,7 +59,7 @@
             // textBoxCounterHBC
             // 
             textBoxCounterHBC.Font = new Font("Times New Roman", 15.75F);
-            textBoxCounterHBC.Location = new Point(248, 196);
+            textBoxCounterHBC.Location = new Point(261, 217);
             textBoxCounterHBC.Name = "textBoxCounterHBC";
             textBoxCounterHBC.PlaceholderText = "0.0";
             textBoxCounterHBC.Size = new Size(195, 32);
@@ -65,7 +69,7 @@
             // textBoxCounterGBC
             // 
             textBoxCounterGBC.Font = new Font("Times New Roman", 15.75F);
-            textBoxCounterGBC.Location = new Point(246, 250);
+            textBoxCounterGBC.Location = new Point(259, 311);
             textBoxCounterGBC.Name = "textBoxCounterGBC";
             textBoxCounterGBC.PlaceholderText = "0.0";
             textBoxCounterGBC.Size = new Size(197, 32);
@@ -76,7 +80,7 @@
             // 
             labelCountersGBC.AutoSize = true;
             labelCountersGBC.Font = new Font("Times New Roman", 15.75F);
-            labelCountersGBC.Location = new Point(35, 259);
+            labelCountersGBC.Location = new Point(48, 320);
             labelCountersGBC.Name = "labelCountersGBC";
             labelCountersGBC.Size = new Size(176, 23);
             labelCountersGBC.TabIndex = 2;
@@ -85,7 +89,7 @@
             // textBoxCounterEE
             // 
             textBoxCounterEE.Font = new Font("Times New Roman", 15.75F);
-            textBoxCounterEE.Location = new Point(246, 303);
+            textBoxCounterEE.Location = new Point(765, 217);
             textBoxCounterEE.Name = "textBoxCounterEE";
             textBoxCounterEE.PlaceholderText = "0.0";
             textBoxCounterEE.Size = new Size(197, 32);
@@ -97,7 +101,7 @@
             // 
             labelCountersEE.AutoSize = true;
             labelCountersEE.Font = new Font("Times New Roman", 15.75F);
-            labelCountersEE.Location = new Point(35, 312);
+            labelCountersEE.Location = new Point(554, 226);
             labelCountersEE.Name = "labelCountersEE";
             labelCountersEE.Size = new Size(164, 23);
             labelCountersEE.TabIndex = 4;
@@ -126,7 +130,7 @@
             // textBoxCounterEENight
             // 
             textBoxCounterEENight.Font = new Font("Times New Roman", 15.75F);
-            textBoxCounterEENight.Location = new Point(246, 353);
+            textBoxCounterEENight.Location = new Point(765, 307);
             textBoxCounterEENight.Name = "textBoxCounterEENight";
             textBoxCounterEENight.PlaceholderText = "0.0";
             textBoxCounterEENight.Size = new Size(197, 32);
@@ -138,7 +142,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Times New Roman", 15.75F);
-            label2.Location = new Point(34, 362);
+            label2.Location = new Point(553, 316);
             label2.Name = "label2";
             label2.Size = new Size(211, 23);
             label2.TabIndex = 11;
@@ -147,7 +151,7 @@
             // buttonCalculateHBC
             // 
             buttonCalculateHBC.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            buttonCalculateHBC.Location = new Point(400, 423);
+            buttonCalculateHBC.Location = new Point(484, 395);
             buttonCalculateHBC.Name = "buttonCalculateHBC";
             buttonCalculateHBC.Size = new Size(195, 41);
             buttonCalculateHBC.TabIndex = 13;
@@ -159,17 +163,52 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label1.Location = new Point(34, 104);
+            label1.Location = new Point(102, 116);
             label1.Name = "label1";
             label1.Size = new Size(451, 64);
             label1.TabIndex = 14;
             label1.Text = "Поля услуг для которых не передаются\r\nпоказания - оставить пустыми";
             // 
+            // dataGridViewShowResults
+            // 
+            dataGridViewShowResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewShowResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewShowResults.Location = new Point(12, 12);
+            dataGridViewShowResults.Name = "dataGridViewShowResults";
+            dataGridViewShowResults.Size = new Size(1032, 377);
+            dataGridViewShowResults.TabIndex = 15;
+            dataGridViewShowResults.Visible = false;
+            // 
+            // buttonReset
+            // 
+            buttonReset.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonReset.Location = new Point(134, 395);
+            buttonReset.Name = "buttonReset";
+            buttonReset.Size = new Size(195, 41);
+            buttonReset.TabIndex = 16;
+            buttonReset.Text = "Сбросить";
+            buttonReset.UseVisualStyleBackColor = true;
+            buttonReset.Click += buttonReset_Click;
+            // 
+            // buttonSave
+            // 
+            buttonSave.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonSave.Location = new Point(803, 395);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(195, 41);
+            buttonSave.TabIndex = 17;
+            buttonSave.Text = "Сохранить";
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
+            // 
             // FormCalculator
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(621, 490);
+            ClientSize = new Size(1056, 448);
+            Controls.Add(buttonSave);
+            Controls.Add(buttonReset);
+            Controls.Add(dataGridViewShowResults);
             Controls.Add(label1);
             Controls.Add(buttonCalculateHBC);
             Controls.Add(textBoxCounterEENight);
@@ -185,6 +224,7 @@
             Name = "FormCalculator";
             Text = "Расчет коммунальных услуг";
             Load += FormCalculator_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridViewShowResults).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -203,5 +243,8 @@
         private Label label2;
         private Button buttonCalculateHBC;
         private Label label1;
+        private DataGridView dataGridViewShowResults;
+        private Button buttonReset;
+        private Button buttonSave;
     }
 }

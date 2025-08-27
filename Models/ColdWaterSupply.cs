@@ -11,6 +11,7 @@ namespace VerificationTask.Models
 {
     internal class ColdWaterSupply
     {
+
         private double result;
         private double tariff;
         private double normativ;
@@ -18,12 +19,16 @@ namespace VerificationTask.Models
         private int count_person;
         private int indications;
 
+        /*
+         * Расчет обьема потребления
+         * */
         public double getVolume(int personCount, string indicationsForm)
         {
             double result = 0.0;
             double newIndications = 0;
             int indications = 0;
             double normative = TariffEnums.getDoubleValueNormativEnum(TariffEnum.HBC);
+            double oldIndications = ConnectionSqlite.GetIndicationDataByWater("ColdWater");
 
             if (indicationsForm.Length > 0)
             {
@@ -35,7 +40,6 @@ namespace VerificationTask.Models
             }
             else
             {
-                double oldIndications = ConnectionSqlite.GetIndicationDataByWater("ColdWater");
                 newIndications = indications - oldIndications;
                 result = newIndications;
 

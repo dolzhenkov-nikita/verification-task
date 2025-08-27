@@ -20,6 +20,10 @@ namespace VerificationTask.Models
         public double VolumeTE { get; set; }
         public int CountPerson { get; set; }
         public int Indications { get; set; }
+
+        /*
+         * Расчет обьема потребления
+         * */
         public double getVolume(int personCount, string indicationsForm)
         {
             double result = 0.0;
