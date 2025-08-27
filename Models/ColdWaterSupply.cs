@@ -12,6 +12,7 @@ namespace VerificationTask.Models
     internal class ColdWaterSupply
     {
 
+        private long id;
         private double result;
         private double tariff;
         private double normativ;
@@ -52,7 +53,15 @@ namespace VerificationTask.Models
 
             return result;
         }
+        public long GetId()
+        {
+            return id;
+        }
 
+        public void SetId(long value)
+        {
+            id = value;
+        }
         public double Getresult()
         {
             return result;

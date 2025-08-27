@@ -11,6 +11,7 @@ namespace VerificationTask.Models
 {
     internal class ElectricalEnergy
     {
+       public int Id { get; set; }
        public double Result { get; set; }
        public double ResultDay { get; set; }
        public double ResultNight { get; set; }

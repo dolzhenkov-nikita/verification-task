@@ -79,6 +79,10 @@ namespace VerificationTask
             accrual.SetColdWaterSupply(coldWater);
             accrual.SetHotWaterSupply(hotWater);
             accrual.SetElectricalEnergy(electricalEnergy);
+
+            double sumAccrual= accrual.CalculateSum();
+            accrual.SetsumAccrual(sumAccrual);
+
             accrual.ShowData(dataGridViewShowResults);
 
         }
@@ -124,10 +128,10 @@ namespace VerificationTask
             //        " [result] REAL NOT NULL," +
             //        " [cold_water_id] INTEGER  NOT NULL, " +
             //        " [hot_water_id] INTEGER NOT NULL," +
-            //        " [electical_id] INTEGER NOT NULL," +
+            //        " [electrical_id] INTEGER NOT NULL," +
             //        " FOREIGN KEY (cold_water_id) REFERENCES ColdWater(id)," +
             //        " FOREIGN KEY (hot_water_id) REFERENCES HotWater(id)," +
-            //        " FOREIGN KEY (electical_id) REFERENCES ElectricalEnergy(id)" +
+            //        " FOREIGN KEY (electrical_id) REFERENCES ElectricalEnergy(id)" +
             //        ");"
             //CommandText = "CREATE TABLE IF NOT EXISTS [HotWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
             //" [result] REAL NOT NULL," +
@@ -165,13 +169,6 @@ namespace VerificationTask
             //command.ExecuteNonQuery();
             //MessageBox.Show("Таблица софздана");
 
-            //command.CommandText = "INSERT INTO Accrual (type_id, result, tariff_one, volume_one, indications_one) VALUES (1, 21.0, 22.0, 23.0, 24.0)";
-
-            //command.ExecuteNonQuery();
-            //command = new SQLiteCommand(connection)
-            //{
-            //    CommandText = "SELECT * FROM Accrual"
-            //};
             //DataTable data = new DataTable();
             //SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             //adapter.Fill(data);
@@ -242,16 +239,11 @@ namespace VerificationTask
             /*
            * Сохраняем полученные результаты в базу (временно здесь)
            */
-            try
-            {
                 ConnectionSqlite.InserDataByColdWater(accrual.GetColdWaterSupply());
                 ConnectionSqlite.InserDataByHotWater(accrual.GetHotWaterSupply());
                 ConnectionSqlite.InserDataToElecticalEnergy(accrual.GetElectricalEnergy());
-            }
-            catch {
-                MessageBox.Show("Ошибка сохранения");
+                ConnectionSqlite.InserDataToAccrual(accrual);
 
-            }
             MessageBox.Show("Данные сохранены");
         }
 

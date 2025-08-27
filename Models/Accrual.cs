@@ -10,10 +10,16 @@ namespace VerificationTask.Models
 {
     internal class Accrual
     {
+        private double sumAccrual; 
         private ColdWaterSupply coldWaterSupply;
         private HotWaterSupply hotWaterSupply;
         private ElectricalEnergy electricalEnergy;
 
+        public double CalculateSum()
+        {
+            return coldWaterSupply.Getresult()+hotWaterSupply.Result+electricalEnergy.Result;
+        }
+      
         public void ShowData(DataGridView dataGridViewShowResults)
         {
             /*
@@ -68,6 +74,12 @@ namespace VerificationTask.Models
             dataGridViewShowResults.Rows[2].Cells[4].Value=this.electricalEnergy.IndicationsDefault;
             dataGridViewShowResults.Rows[2].Cells[5].Value=this.electricalEnergy.Result;
 
+            dataGridViewShowResults.Rows.Add();
+            dataGridViewShowResults.Rows[3].Cells[0].Value = "ИТОГО";
+            dataGridViewShowResults.Rows[3].Cells[5].Value = this.GetsumAccrual();
+
+
+
         }
         public ColdWaterSupply GetColdWaterSupply()
         {
@@ -97,6 +109,14 @@ namespace VerificationTask.Models
         public void SetElectricalEnergy(ElectricalEnergy value)
         {
             electricalEnergy = value;
+        }
+        public double GetsumAccrual()
+        {
+            return sumAccrual;
+        }
+        public void SetsumAccrual(double value)
+        {
+            sumAccrual = value;
         }
     }
 }

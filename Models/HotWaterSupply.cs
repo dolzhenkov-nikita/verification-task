@@ -11,6 +11,7 @@ namespace VerificationTask.Models
 {
     internal class HotWaterSupply
     {
+        public int Id {  get; set; }
         public double Result {  get; set; }
         public double TariffTN { get; set; }
         public double TariffTE { get; set; }

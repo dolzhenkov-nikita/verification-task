@@ -74,34 +74,49 @@ namespace VerificationTask.Classes
          public static void InserDataByColdWater(ColdWaterSupply coldWaterSupply)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
-
-
-            using (var connection = new SqliteConnection(connectionString))
+            try
             {
-                connection.Open();
-                string insertSql = "INSERT INTO ColdWater ( result, tariff,normativ, volume,count_person, indications) " +
-                                  "VALUES ( @result, @tariff, @normativ, @volume, @count_person, @indications)";
-
-                using (var command = new SqliteCommand(insertSql, connection))
+                using (var connection = new SqliteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@result", coldWaterSupply.Getresult());
-                    command.Parameters.AddWithValue("@tariff", coldWaterSupply.Gettariff());
-                    command.Parameters.AddWithValue("@normativ", coldWaterSupply.Getnormativ());
-                    command.Parameters.AddWithValue("@volume", coldWaterSupply.Getvolume());
-                    command.Parameters.AddWithValue("@count_person", coldWaterSupply.Getcount_person());
-                    command.Parameters.AddWithValue("@indications", coldWaterSupply.Getindications());
+                    int lastRowID;
+                    connection.Open();
+                    string insertSql = "INSERT INTO ColdWater ( result, tariff,normativ, volume,count_person, indications) " +
+                                      "VALUES ( @result, @tariff, @normativ, @volume, @count_person, @indications)";
 
-                    command.ExecuteNonQuery();
-                    Console.WriteLine("Данные успешно добавлены!");
+                    using (var command = new SqliteCommand(insertSql, connection))
+                    {
+                        command.Parameters.AddWithValue("@result", coldWaterSupply.Getresult());
+                        command.Parameters.AddWithValue("@tariff", coldWaterSupply.Gettariff());
+                        command.Parameters.AddWithValue("@normativ", coldWaterSupply.Getnormativ());
+                        command.Parameters.AddWithValue("@volume", coldWaterSupply.Getvolume());
+                        command.Parameters.AddWithValue("@count_person", coldWaterSupply.Getcount_person());
+                        command.Parameters.AddWithValue("@indications", coldWaterSupply.Getindications());
+
+                        command.ExecuteNonQuery();
+
+                        command.CommandText = "SELECT last_insert_rowid()";
+                        lastRowID = Convert.ToInt32(command.ExecuteScalar());
+
+                        coldWaterSupply.SetId(lastRowID);
+
+                        Console.WriteLine($"Данные успешно добавлены!{lastRowID}");
+                    }
                 }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
         /*
          * Вставляем данные горячей воды в базу данных
          */
-        public static void InserDataByHotWater(HotWaterSupply coldWaterSupply)
+        public static void InserDataByHotWater(HotWaterSupply hotWaterSupply)
         {
+            int lastRowID;
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            
+            
 
 
             using (var connection = new SqliteConnection(connectionString))
@@ -112,17 +127,22 @@ namespace VerificationTask.Classes
 
                 using (var command = new SqliteCommand(insertSql, connection))
                 {
-                    command.Parameters.AddWithValue("@result", coldWaterSupply.Result);
-                    command.Parameters.AddWithValue("@tariff_tn", coldWaterSupply.TariffTN);
-                    command.Parameters.AddWithValue("@tariff_te", coldWaterSupply.TariffTE);
-                    command.Parameters.AddWithValue("@normativ_tn", coldWaterSupply.NormativTN);
-                    command.Parameters.AddWithValue("@normativ_te", coldWaterSupply.NormativTE);
-                    command.Parameters.AddWithValue("@volume_tn", coldWaterSupply.VolumeTN);
-                    command.Parameters.AddWithValue("@volume_te", coldWaterSupply.VolumeTE);
-                    command.Parameters.AddWithValue("@count_person", coldWaterSupply.CountPerson);
-                    command.Parameters.AddWithValue("@indications", coldWaterSupply.Indications);
+                    command.Parameters.AddWithValue("@result", hotWaterSupply.Result);
+                    command.Parameters.AddWithValue("@tariff_tn", hotWaterSupply.TariffTN);
+                    command.Parameters.AddWithValue("@tariff_te", hotWaterSupply.TariffTE);
+                    command.Parameters.AddWithValue("@normativ_tn", hotWaterSupply.NormativTN);
+                    command.Parameters.AddWithValue("@normativ_te", hotWaterSupply.NormativTE);
+                    command.Parameters.AddWithValue("@volume_tn", hotWaterSupply.VolumeTN);
+                    command.Parameters.AddWithValue("@volume_te", hotWaterSupply.VolumeTE);
+                    command.Parameters.AddWithValue("@count_person", hotWaterSupply.CountPerson);
+                    command.Parameters.AddWithValue("@indications", hotWaterSupply.Indications);
 
                     command.ExecuteNonQuery();
+
+                    command.CommandText = "SELECT last_insert_rowid()";
+                    lastRowID = Convert.ToInt32(command.ExecuteScalar());
+
+                    hotWaterSupply.Id=(lastRowID);
                     Console.WriteLine("Данные успешно добавлены!");
                 }
             }
@@ -133,7 +153,7 @@ namespace VerificationTask.Classes
         public static void InserDataToElecticalEnergy(ElectricalEnergy electricalEnergy)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
-
+            int lastRowID;
 
             using (var connection = new SqliteConnection(connectionString))
             {
@@ -168,8 +188,44 @@ namespace VerificationTask.Classes
                     command.Parameters.AddWithValue("@indications_night", electricalEnergy.IndicationsNight);
 
                     command.ExecuteNonQuery();
+
+                    command.CommandText = "SELECT last_insert_rowid()";
+                    lastRowID = Convert.ToInt32(command.ExecuteScalar());
+
+                    electricalEnergy.Id = (lastRowID);
+
                     Console.WriteLine("Данные успешно добавлены!");
                 }
+            }
+        }
+        public static void InserDataToAccrual(Accrual accrual)
+        {
+            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            try
+            {
+                using (var connection = new SqliteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string insertSql = "INSERT INTO Accrual ( result, cold_water_id,hot_water_id, electrical_id) " +
+                                      "VALUES ( @result, @cold_water_id, @hot_water_id, @electrical_id)";
+
+                    using (var command = new SqliteCommand(insertSql, connection))
+                    {
+                        command.Parameters.AddWithValue("@result", accrual.GetsumAccrual());
+                        command.Parameters.AddWithValue("@cold_water_id", accrual.GetColdWaterSupply().GetId());
+                        command.Parameters.AddWithValue("@hot_water_id", accrual.GetHotWaterSupply().Id);
+                        command.Parameters.AddWithValue("@electrical_id", accrual.GetElectricalEnergy().Id);
+
+                        command.ExecuteNonQuery();
+
+                        Console.WriteLine($"Данные успешно добавлены!");
+                    }
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
     }
