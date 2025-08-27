@@ -257,6 +257,13 @@ namespace VerificationTask
             ConnectionSqlite.InserDataToAccrual(accrual);
 
             MessageBox.Show("Данные сохранены");
+            dataGridViewShowResults.Rows.Clear();
+            dataGridViewShowResults.Visible = false;
+            textBoxCounterEE.Clear();
+            textBoxCounterEENight.Clear();
+            textBoxCounterGBC.Clear();
+            textBoxCounterHBC.Clear();
+            textBoxCountPerson.Clear();
         }
 
         private void buttonReset_Click(object sender, EventArgs e)

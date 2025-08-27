@@ -56,27 +56,51 @@ namespace VerificationTask.Models
               */
             dataGridViewShowResults.Rows.Add();
             dataGridViewShowResults.Rows[1].Cells[0].Value="Горячая вода";
-            dataGridViewShowResults.Rows[1].Cells[1].Value=this.hotWaterSupply.TariffTN;
-            dataGridViewShowResults.Rows[1].Cells[2].Value=this.hotWaterSupply.NormativTE;
             dataGridViewShowResults.Rows[1].Cells[3].Value=this.hotWaterSupply.CountPerson;
             dataGridViewShowResults.Rows[1].Cells[4].Value=this.hotWaterSupply.Indications;
             dataGridViewShowResults.Rows[1].Cells[5].Value=this.hotWaterSupply.Result;
+
+            dataGridViewShowResults.Rows.Add();
+            dataGridViewShowResults.Rows[2].Cells[0].Value= "ГВС Теплоноситель";
+            dataGridViewShowResults.Rows[2].Cells[1].Value=this.hotWaterSupply.TariffTN;
+            dataGridViewShowResults.Rows[2].Cells[2].Value=this.hotWaterSupply.NormativTN;
+            dataGridViewShowResults.Rows[2].Cells[4].Value=this.hotWaterSupply.Indications;
+            dataGridViewShowResults.Rows[2].Cells[5].Value=this.hotWaterSupply.ResultTN;
+            dataGridViewShowResults.Rows.Add();
+
+            dataGridViewShowResults.Rows[3].Cells[0].Value= "ГВС Тепловая энергия";
+            dataGridViewShowResults.Rows[3].Cells[1].Value = this.hotWaterSupply.TariffTE;
+            dataGridViewShowResults.Rows[3].Cells[2].Value = this.hotWaterSupply.NormativTE;
+            dataGridViewShowResults.Rows[3].Cells[4].Value = this.hotWaterSupply.Indications;
+            dataGridViewShowResults.Rows[3].Cells[5].Value = this.hotWaterSupply.ResultTE;
 
             /*
              * Вывожу общие данные по электроэнергии
              */
 
             dataGridViewShowResults.Rows.Add();
-            dataGridViewShowResults.Rows[2].Cells[0].Value="Электроэнергия";
-            dataGridViewShowResults.Rows[2].Cells[1].Value=this.electricalEnergy.TariffDefault;
-            dataGridViewShowResults.Rows[2].Cells[2].Value=this.electricalEnergy.Normativ;
-            dataGridViewShowResults.Rows[2].Cells[3].Value=this.electricalEnergy.CountPerson;
-            dataGridViewShowResults.Rows[2].Cells[4].Value=this.electricalEnergy.IndicationsDefault;
-            dataGridViewShowResults.Rows[2].Cells[5].Value=this.electricalEnergy.Result;
+            dataGridViewShowResults.Rows[4].Cells[0].Value="Электроэнергия";
+            dataGridViewShowResults.Rows[4].Cells[1].Value=this.electricalEnergy.TariffDefault;
+            dataGridViewShowResults.Rows[4].Cells[2].Value=this.electricalEnergy.Normativ;
+            dataGridViewShowResults.Rows[4].Cells[3].Value=this.electricalEnergy.CountPerson;
+            dataGridViewShowResults.Rows[4].Cells[4].Value=this.electricalEnergy.IndicationsDefault;
+            dataGridViewShowResults.Rows[4].Cells[5].Value=this.electricalEnergy.Result;
 
             dataGridViewShowResults.Rows.Add();
-            dataGridViewShowResults.Rows[3].Cells[0].Value = "ИТОГО";
-            dataGridViewShowResults.Rows[3].Cells[5].Value = this.GetsumAccrual();
+            dataGridViewShowResults.Rows[5].Cells[0].Value="Электроэнергия день";
+            dataGridViewShowResults.Rows[5].Cells[1].Value=this.electricalEnergy.TariffDay;
+            dataGridViewShowResults.Rows[5].Cells[4].Value=this.electricalEnergy.IndicationsDay;
+            dataGridViewShowResults.Rows[5].Cells[5].Value=this.electricalEnergy.ResultDay;
+
+            dataGridViewShowResults.Rows.Add();
+            dataGridViewShowResults.Rows[6].Cells[0].Value="Электроэнергия ночь";
+            dataGridViewShowResults.Rows[6].Cells[1].Value=this.electricalEnergy.TariffNight;
+            dataGridViewShowResults.Rows[6].Cells[4].Value=this.electricalEnergy.IndicationsNight;
+            dataGridViewShowResults.Rows[6].Cells[5].Value=this.electricalEnergy.ResultNight;
+
+            dataGridViewShowResults.Rows.Add();
+            dataGridViewShowResults.Rows[7].Cells[0].Value = "ИТОГО";
+            dataGridViewShowResults.Rows[7].Cells[5].Value = this.GetsumAccrual();
 
 
 
