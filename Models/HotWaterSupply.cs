@@ -23,7 +23,7 @@ namespace VerificationTask.Models
         public double getVolume(int personCount, string indicationsForm)
         {
             double result = 0.0;
-            double newIndications = 0.0;
+            double newIndications = 0;
             int indications = 0;
             double normative_tn = TariffEnums.getDoubleValueNormativEnum(TariffEnum.GBC_HEAR_CARRIER);
             double normative_te = TariffEnums.getDoubleValueNormativEnum(TariffEnum.GBC_THERMAL_ENERGY);
@@ -33,7 +33,7 @@ namespace VerificationTask.Models
                 indications = Convert.ToInt32(indicationsForm);
             }
 
-            if (indications == 0.0)
+            if (indications == 0)
             {
                 VolumeTN = personCount * normative_tn;
                 VolumeTE = VolumeTN * normative_te;

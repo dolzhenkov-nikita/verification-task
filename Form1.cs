@@ -13,6 +13,8 @@ namespace VerificationTask
 {
     public partial class FormCalculator : Form
     {
+        Accrual accrual = new Accrual();
+
         public FormCalculator()
         {
             InitializeComponent();
@@ -20,31 +22,71 @@ namespace VerificationTask
 
         private void buttonCalculateHBC_Click(object sender, EventArgs e)
         {
+            /*
+             * Минимальное количество человек 1
+             * Если с формы пришли данные, то конвертируем в целое число
+             */
+
             int personCount = 1;
             if (textBoxCountPerson.Text.Length > 0)
             {
                 personCount = Convert.ToInt32(textBoxCountPerson.Text);
             }
 
-            Accrual accrual = new Accrual();
+            /*
+             * Создаем экземпляр начислений, для связывания расчетов показаний
+            */
+
+
+            /*
+             * Создаем экземпляры для расчетов холодной и горячей воды
+             * и электричества
+             */
 
             ColdWaterSupply coldWater = new ColdWaterSupply();
             HotWaterSupply hotWater = new HotWaterSupply();
             ElectricalEnergy electricalEnergy = new ElectricalEnergy();
 
+            /*
+             * Расчитываем обьем потребления холодной и горячей воды
+             */
+
             double volumeColdWater = coldWater.getVolume(personCount, indicationsForm: textBoxCounterHBC.Text.ToString());
             double volumeHotWater = hotWater.getVolume(personCount, indicationsForm: textBoxCounterGBC.Text.ToString());
+            electricalEnergy.getResult(personCount,
+                                            indicationsFormDay: textBoxCounterEE.Text.ToString(),
+                                            indicationsFormNight: textBoxCounterEENight.Text.ToString());
+
+            /*
+           * Расчитываем размер оплыт холодной и горячей воды
+           */
 
             double utilitiesColdWaterSum = CalculationAccrual.getCost(volumeColdWater, TariffEnum.HBC);
             double utilitiesHotWaterSum = CalculationAccrual.getCost(volumeColdWater, TariffEnum.GBC_THERMAL_ENERGY);
 
-            coldWater.Setresult(utilitiesColdWaterSum);
-            hotWater.Result=(utilitiesHotWaterSum);
+            /*
+             * Сохраняем полученные результаты в экзмпляры
+             */
 
-            ConnectionSqlite.InserDataByColdWater(coldWater);
-            ConnectionSqlite.InserDataByHotWater(hotWater);
+            coldWater.Setresult(utilitiesColdWaterSum);
+            hotWater.Result = (utilitiesHotWaterSum);
+
+
+            /*
+             * Сохранение в начисления
+             */
 
             accrual.SetColdWaterSupply(coldWater);
+            accrual.SetHotWaterSupply(hotWater);
+            accrual.SetElectricalEnergy(electricalEnergy);
+
+            /*
+            * Сохраняем полученные результаты в базу (временно здесь)
+            */
+
+            ConnectionSqlite.InserDataByColdWater(accrual.GetColdWaterSupply());
+            ConnectionSqlite.InserDataByHotWater(accrual.GetHotWaterSupply());
+            ConnectionSqlite.InserDataToElecticalEnergy(accrual.GetElectricalEnergy());
 
             MessageBox.Show(utilitiesColdWaterSum.ToString());
         }
@@ -52,14 +94,14 @@ namespace VerificationTask
 
         private void textBoxCounterHBC_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar)) return;
+            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
             else
                 e.Handled = true;
         }
 
         private void textBoxCountPerson_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar)) return;
+            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
             else
                 e.Handled = true;
         }
@@ -103,10 +145,12 @@ namespace VerificationTask
             //" [normativ_te] REAL ," +
             //" [volume_tn] REAL NOT NULL ," +
             //" [volume_te] REAL NOT NULL ," +
-            //" [count_person] REAL NOT NULL ," +
-            //" [indications] REAL NOT NULL);"
+            //" [count_person] INTEGER NOT NULL ," +
+            //" [indications] INTEGER NOT NULL);"
             //CommandText = "CREATE TABLE IF NOT EXISTS [ElecticalEnergy]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
             //" [result] REAL NOT NULL," +
+            //" [result_day] REAL NOT NULL," +
+            //" [result_night ] REAL NOT NULL," +
             //" [tariff_default] REAL ," +
             //" [tariff_day] REAL ," +
             //" [tariff_night] REAL ," +
@@ -114,17 +158,17 @@ namespace VerificationTask
             //" [volume] REAL NOT NULL ," +
             //" [volume_day] REAL NOT NULL ," +
             //" [volume_night] REAL NOT NULL ," +
-            //" [count_person] REAL NOT NULL ," +
-            //" [indications_default] REAL NOT NULL ," +
-            //" [indications_day] REAL NOT NULL ," +
-            //" [indications_night] REAL NOT NULL);"
+            //" [count_person] INTEGER NOT NULL ," +
+            //" [indications_default] INTEGER NOT NULL ," +
+            //" [indications_day] INTEGER NOT NULL ," +
+            //" [indications_night] INTEGER NOT NULL);"
             //CommandText = "CREATE TABLE IF NOT EXISTS [ColdWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
             //" [result] REAL NOT NULL," +
             //" [tariff] REAL ," +
             //" [normativ] REAL ," +
             //" [volume] REAL NOT NULL ," +
-            //" [count_person] REAL NOT NULL ," +
-            //" [indications] REAL NOT NULL ," +
+            //" [count_person] INTEGER NOT NULL ," +
+            //" [indications] INTEGER NOT NULL ," +
             //};
             //command.ExecuteNonQuery();
             //MessageBox.Show("Таблица софздана");
@@ -151,9 +195,54 @@ namespace VerificationTask
 
         private void textBoxCounterGBC_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar)) return;
+            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
             else
                 e.Handled = true;
+        }
+
+        private void textBoxCounterEE_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
+            else
+                e.Handled = true;
+        }
+
+        private void textBoxCounterEENight_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsNumber(e.KeyChar) || e.KeyChar == (char)Keys.Back) return;
+            else
+                e.Handled = true;
+        }
+
+        private void textBoxCounterEE_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxCounterEENight.Text))
+            {
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(textBoxCounterEENight.Text))
+            {
+                if (string.IsNullOrEmpty(textBoxCounterEE.Text))
+                {
+                    MessageBox.Show("При заполненном Показания по ЭЭ необходимо заполнить Показания по ЭЭ!");
+                    textBoxCounterEE.Focus();
+                    textBoxCounterEENight.Clear();
+                }
+            }
+        }
+
+        private void textBoxCounterEENight_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBoxCounterEENight.Text))
+            {
+                if (string.IsNullOrEmpty(textBoxCounterEE.Text))
+                {
+                    MessageBox.Show("При заполненном Показания по ЭЭ необходимо заполнить Показания по ЭЭ!");
+                    textBoxCounterEE.Focus();
+                    textBoxCounterEENight.Clear();
+                }
+            }
         }
     }
 }

@@ -14,11 +14,33 @@ namespace VerificationTask.Classes
         static SQLiteConnection connection;
         static SQLiteCommand command;
 
+        public static double GetIndicationDataByFieldNameAndTableName(string table,string field)
+        {
+            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            double indications = 0;
 
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                string selectSql = $"SELECT {field} FROM {table} where {field}<>0 ORDER BY ID DESC LIMIT 1";
+                using (var command = new SqliteCommand(selectSql, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            indications = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+            return indications;
+        }
         public static double GetIndicationDataByWater(string table)
         {
             string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
-            double indications = 0.0;
+            double indications = 0;
 
 
             using (var connection = new SqliteConnection(connectionString))
@@ -86,6 +108,48 @@ namespace VerificationTask.Classes
                     command.Parameters.AddWithValue("@volume_te", coldWaterSupply.VolumeTE);
                     command.Parameters.AddWithValue("@count_person", coldWaterSupply.CountPerson);
                     command.Parameters.AddWithValue("@indications", coldWaterSupply.Indications);
+
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Данные успешно добавлены!");
+                }
+            }
+        }
+        public static void InserDataToElecticalEnergy(ElectricalEnergy electricalEnergy)
+        {
+            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                string insertSql = "INSERT INTO ElectricalEnergy ( result, result_day,result_night," +
+                                                                "tariff_default,tariff_day, tariff_night," +
+                                                                "normativ,volume, volume_day," +
+                                                                "volume_night,count_person,indications_default," +
+                                                                "indications_day,indications_night) " +
+
+                                                                "VALUES ( @result, @result_day,@result_night," +
+                                                                "@tariff_default,@tariff_day, @tariff_night," +
+                                                                "@normativ,@volume, @volume_day," +
+                                                                "@volume_night,@count_person,@indications_default," +
+                                                                "@indications_day,@indications_night)";
+
+                using (var command = new SqliteCommand(insertSql, connection))
+                {
+                    command.Parameters.AddWithValue("@result", electricalEnergy.Result);
+                    command.Parameters.AddWithValue("@result_day", electricalEnergy.ResultDay);
+                    command.Parameters.AddWithValue("@result_night", electricalEnergy.ResultNight);
+                    command.Parameters.AddWithValue("@tariff_default", electricalEnergy.TariffDefault);
+                    command.Parameters.AddWithValue("@tariff_day", electricalEnergy.TariffDay);
+                    command.Parameters.AddWithValue("@tariff_night", electricalEnergy.TariffNight);
+                    command.Parameters.AddWithValue("@normativ", electricalEnergy.Normativ);
+                    command.Parameters.AddWithValue("@volume", electricalEnergy.Volume);
+                    command.Parameters.AddWithValue("@volume_day", electricalEnergy.VolumeDay);
+                    command.Parameters.AddWithValue("@volume_night", electricalEnergy.VolumeNight);
+                    command.Parameters.AddWithValue("@count_person", electricalEnergy.CountPerson);
+                    command.Parameters.AddWithValue("@indications_default", electricalEnergy.IndicationsDefault);
+                    command.Parameters.AddWithValue("@indications_day", electricalEnergy.IndicationsDay);
+                    command.Parameters.AddWithValue("@indications_night", electricalEnergy.IndicationsNight);
 
                     command.ExecuteNonQuery();
                     Console.WriteLine("Данные успешно добавлены!");

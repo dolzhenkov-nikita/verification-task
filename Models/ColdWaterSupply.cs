@@ -16,12 +16,12 @@ namespace VerificationTask.Models
         private double normativ;
         private double volume;
         private int count_person;
-        private double indications;
+        private int indications;
 
         public double getVolume(int personCount, string indicationsForm)
         {
             double result = 0.0;
-            double newIndications = 0.0;
+            double newIndications = 0;
             int indications = 0;
             double normative = TariffEnums.getDoubleValueNormativEnum(TariffEnum.HBC);
 
@@ -29,7 +29,7 @@ namespace VerificationTask.Models
             {
                 indications = Convert.ToInt32(indicationsForm);
             }
-            if (indications == 0.0)
+            if (indications == 0)
             {
                 result = personCount * normative;
             }
@@ -99,12 +99,12 @@ namespace VerificationTask.Models
             count_person = value;
         }
 
-        public double Getindications()
+        public int Getindications()
         {
             return indications;
         }
 
-        public void Setindications(double value)
+        public void Setindications(int value)
         {
             indications = value;
         }

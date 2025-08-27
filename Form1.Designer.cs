@@ -90,6 +90,8 @@
             textBoxCounterEE.PlaceholderText = "0.0";
             textBoxCounterEE.Size = new Size(197, 32);
             textBoxCounterEE.TabIndex = 5;
+            textBoxCounterEE.TextChanged += textBoxCounterEE_TextChanged;
+            textBoxCounterEE.KeyPress += textBoxCounterEE_KeyPress;
             // 
             // labelCountersEE
             // 
@@ -97,9 +99,9 @@
             labelCountersEE.Font = new Font("Times New Roman", 15.75F);
             labelCountersEE.Location = new Point(35, 312);
             labelCountersEE.Name = "labelCountersEE";
-            labelCountersEE.Size = new Size(210, 23);
+            labelCountersEE.Size = new Size(164, 23);
             labelCountersEE.TabIndex = 4;
-            labelCountersEE.Text = "Показания по ЭЭ день";
+            labelCountersEE.Text = "Показания по ЭЭ";
             // 
             // textBoxCountPerson
             // 
@@ -129,6 +131,8 @@
             textBoxCounterEENight.PlaceholderText = "0.0";
             textBoxCounterEENight.Size = new Size(197, 32);
             textBoxCounterEENight.TabIndex = 12;
+            textBoxCounterEENight.TextChanged += textBoxCounterEENight_TextChanged;
+            textBoxCounterEENight.KeyPress += textBoxCounterEENight_KeyPress;
             // 
             // label2
             // 
