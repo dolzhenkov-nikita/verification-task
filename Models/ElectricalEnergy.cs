@@ -81,18 +81,18 @@ namespace VerificationTask.Models
              *  Если есть показания за день, но нет за ночь
              *  тогда расчитываем оплату за день по тарифу?
              */
-            //else if (indications != 0 && indicationsNight==0)
-            //{
-            //    double oldIndication = ConnectionSqlite.GetIndicationDataByFieldNameAndTableName("ElectricalEnergy", "indications_default");
+            else if (indications != 0 && indicationsNight == 0)
+            {
+                double oldIndication = ConnectionSqlite.GetIndicationDataByFieldNameAndTableName("ElectricalEnergy", "indications_default");
 
-            //    Volume = indications - oldIndication;
-            //    Result = CalculationAccrual.getCost(VolumeNight, TariffEnum.EE_DEFAULT);
-            //}
+                Volume = indications - oldIndication;
+                Result = CalculationAccrual.getCost(VolumeNight, TariffEnum.EE_DEFAULT);
+            }
 
             /*
              * Если нет показаний то расчитываем формулу без показанйи
              */
-            else if(indications == 0 && indicationsNight == 0)
+            else if (indications == 0 && indicationsNight == 0)
             {
                 double oldIndication = ConnectionSqlite.GetIndicationDataByFieldNameAndTableName("ElectricalEnergy", "indications_default");
 

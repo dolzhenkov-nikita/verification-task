@@ -43,6 +43,7 @@
             dataGridViewShowResults = new DataGridView();
             buttonReset = new Button();
             buttonSave = new Button();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewShowResults).BeginInit();
             SuspendLayout();
             // 
@@ -201,6 +202,16 @@
             buttonSave.UseVisualStyleBackColor = true;
             buttonSave.Click += buttonSave_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label3.Location = new Point(765, 252);
+            label3.Name = "label3";
+            label3.Size = new Size(241, 30);
+            label3.TabIndex = 14;
+            label3.Text = "Для показаний по общему тарифу\r\nДля дневных если заполнен ночной тариф";
+            // 
             // FormCalculator
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -221,6 +232,7 @@
             Controls.Add(labelCountersGBC);
             Controls.Add(textBoxCounterHBC);
             Controls.Add(labelCountersHBC);
+            Controls.Add(label3);
             Name = "FormCalculator";
             Text = "Расчет коммунальных услуг";
             Load += FormCalculator_Load;
@@ -246,5 +258,6 @@
         private DataGridView dataGridViewShowResults;
         private Button buttonReset;
         private Button buttonSave;
+        private Label label3;
     }
 }
