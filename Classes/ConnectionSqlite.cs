@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
@@ -21,7 +22,16 @@ namespace VerificationTask.Classes
          */
         public static double GetIndicationDataByFieldNameAndTableName(string table,string field)
         {
-            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
+
+            string dbPath = Path.Combine(projectPath, "utilites.db");
+
+            string connectionString = $"Data Source={dbPath};";
+
+            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+
             double indications = 0;
 
 
@@ -47,9 +57,16 @@ namespace VerificationTask.Classes
          * */
         public static double GetIndicationDataByWater(string table)
         {
-            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
-            double indications = 0;
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
 
+            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
+
+            string dbPath = Path.Combine(projectPath, "utilites.db");
+
+            string connectionString = $"Data Source={dbPath};";
+            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+
+            double indications = 0;
 
             using (var connection = new SqliteConnection(connectionString))
             {
@@ -73,7 +90,16 @@ namespace VerificationTask.Classes
          */
          public static void InserDataByColdWater(ColdWaterSupply coldWaterSupply)
         {
-            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
+
+            string dbPath = Path.Combine(projectPath, "utilites.db");
+
+            string connectionString = $"Data Source={dbPath};";
+
+            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+
             try
             {
                 using (var connection = new SqliteConnection(connectionString))
@@ -114,11 +140,17 @@ namespace VerificationTask.Classes
         public static void InserDataByHotWater(HotWaterSupply hotWaterSupply)
         {
             int lastRowID;
-            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
-            
-            
 
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
 
+            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
+
+            string dbPath = Path.Combine(projectPath, "utilites.db");
+
+            string connectionString = $"Data Source={dbPath};";
+
+            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
@@ -154,7 +186,16 @@ namespace VerificationTask.Classes
          */
         public static void InserDataToElecticalEnergy(ElectricalEnergy electricalEnergy)
         {
-            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
+
+            string dbPath = Path.Combine(projectPath, "utilites.db");
+
+            string connectionString = $"Data Source={dbPath};";
+
+            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+
             int lastRowID;
 
             using (var connection = new SqliteConnection(connectionString))
@@ -202,7 +243,17 @@ namespace VerificationTask.Classes
         }
         public static void InserDataToAccrual(Accrual accrual)
         {
-            string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
+
+            string dbPath = Path.Combine(projectPath, "utilites.db");
+
+            string connectionString = $"Data Source={dbPath};";
+
+            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+
             try
             {
                 using (var connection = new SqliteConnection(connectionString))
