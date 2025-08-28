@@ -126,67 +126,67 @@ namespace VerificationTask
         private void FormCalculator_Load(object sender, EventArgs e)
         {
 
-            //if (Connect())
-            //{
-            //    command = new SQLiteCommand(connection)
-            //    {
-            //        CommandText = "CREATE TABLE IF NOT EXISTS [Accrual]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
-            //        " [result] REAL NOT NULL," +
-            //        " [cold_water_id] INTEGER  NOT NULL, " +
-            //        " [hot_water_id] INTEGER NOT NULL," +
-            //        " [electrical_id] INTEGER NOT NULL," +
-            //        " FOREIGN KEY (cold_water_id) REFERENCES ColdWater(id)," +
-            //        " FOREIGN KEY (hot_water_id) REFERENCES HotWater(id)," +
-            //        " FOREIGN KEY (electrical_id) REFERENCES ElectricalEnergy(id)" +
-            //        ");"
-            //CommandText = "CREATE TABLE IF NOT EXISTS [HotWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
-            //" [result] REAL NOT NULL," +
-            //" [result_tn] REAL NOT NULL," +
-            //" [result_te] REAL NOT NULL," +
-            //" [tariff_tn] REAL ," +
-            //" [tariff_te] REAL ," +
-            //" [normativ_tn] REAL ," +
-            //" [normativ_te] REAL ," +
-            //" [volume_tn] REAL NOT NULL ," +
-            //" [volume_te] REAL NOT NULL ," +
-            //" [count_person] INTEGER NOT NULL ," +
-            //" [indications] REAL NOT NULL);"
-            //CommandText = "CREATE TABLE IF NOT EXISTS [ElecticalEnergy]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
-            //" [result] REAL NOT NULL," +
-            //" [result_day] REAL NOT NULL," +
-            //" [result_night ] REAL NOT NULL," +
-            //" [tariff_default] REAL ," +
-            //" [tariff_day] REAL ," +
-            //" [tariff_night] REAL ," +
-            //" [normativ] REAL ," +
-            //" [volume] REAL NOT NULL ," +
-            //" [volume_day] REAL NOT NULL ," +
-            //" [volume_night] REAL NOT NULL ," +
-            //" [count_person] INTEGER NOT NULL ," +
-            //" [indications_default] REAL NOT NULL ," +
-            //" [indications_day] REAL NOT NULL ," +
-            //" [indications_night] REAL NOT NULL);"
-            //CommandText = "CREATE TABLE IF NOT EXISTS [ColdWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
-            //" [result] REAL NOT NULL," +
-            //" [tariff] REAL ," +
-            //" [normativ] REAL ," +
-            //" [volume] REAL NOT NULL ," +
-            //" [count_person] INTEGER NOT NULL ," +
-            //" [indications] REAL NOT NULL ," +
-            //};
-            //command.ExecuteNonQuery();
-            //MessageBox.Show("Таблица софздана");
+            if (Connect())
+            {
 
-            //DataTable data = new DataTable();
-            //SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
-            //adapter.Fill(data);
-            //MessageBox.Show($"Прочитано {data.Rows.Count} записей из таблицы БД");
-            //foreach (DataRow row in data.Rows)
-            //{
-            //    MessageBox.Show($"id = {row.Field<long>("id")} result = {row.Field<double>("result")} volume_one = {row.Field<double>("volume_one")}");
-            //}
-            //}
-            //connection.Close();
+                //string CommandText = "CREATE TABLE IF NOT EXISTS [ColdWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
+                //                    " [result] REAL NOT NULL," +
+                //                    " [tariff] REAL ," +
+                //                    " [normativ] REAL ," +
+                //                    " [volume] REAL NOT NULL ," +
+                //                    " [count_person] INTEGER NOT NULL ," +
+                //                    " [indications] REAL NOT NULL);";
+                //string CommandText = "CREATE TABLE IF NOT EXISTS [HotWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
+                //                    " [result] REAL NOT NULL," +
+                //                    " [result_tn] REAL NOT NULL," +
+                //                    " [result_te] REAL NOT NULL," +
+                //                    " [tariff_tn] REAL ," +
+                //                    " [tariff_te] REAL ," +
+                //                    " [normativ_tn] REAL ," +
+                //                    " [normativ_te] REAL ," +
+                //                    " [volume_tn] REAL NOT NULL ," +
+                //                    " [volume_te] REAL NOT NULL ," +
+                //                    " [count_person] INTEGER NOT NULL ," +
+                //                    " [indications] REAL NOT NULL);";
+                //string CommandText = "CREATE TABLE IF NOT EXISTS [ElectricalEnergy]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
+                //                    " [result] REAL NOT NULL," +
+                //                    " [result_day] REAL," +
+                //                    " [result_night] REAL," +
+                //                    " [tariff_default] REAL ," +
+                //                    " [tariff_day] REAL ," +
+                //                    " [tariff_night] REAL ," +
+                //                    " [normativ] REAL ," +
+                //                    " [volume] REAL NOT NULL," +
+                //                    " [volume_day] REAL NOT NULL ," +
+                //                    " [volume_night] REAL NOT NULL ," +
+                //                    " [count_person] INTEGER NOT NULL ," +
+                //                    " [indications_default] INTEGER NOT NULL ," +
+                //                    " [indications_day] REAL NOT NULL,"+
+                //                    " [indications_night] REAL NOT NULL);";
+                //string CommandText = "CREATE TABLE [Accrual] (" +
+                //    "[id]    INTEGER NOT NULL UNIQUE," +
+                //    "[result]    REAL NOT NULL," +
+                //    "[cold_water_id] INTEGER NOT NULL," +
+                //    "[hot_water_id]  INTEGER NOT NULL," +
+                //    "[electrical_id] INTEGER NOT NULL," +
+                //    "PRIMARY KEY([id] AUTOINCREMENT)," +
+                //    "FOREIGN KEY(cold_water_id) REFERENCES ColdWater([id])," +
+                //    "FOREIGN KEY(electrical_id) REFERENCES ElectricalEnergy([id])," +
+                //    "FOREIGN KEY(hot_water_id) REFERENCES HotWater([id])" +
+                //    "); ";
+                command.ExecuteNonQuery();
+                MessageBox.Show("Таблица софздана");
+
+                DataTable data = new DataTable();
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+                adapter.Fill(data);
+                MessageBox.Show($"Прочитано {data.Rows.Count} записей из таблицы БД");
+                foreach (DataRow row in data.Rows)
+                {
+                    MessageBox.Show($"id = {row.Field<long>("id")} result = {row.Field<double>("result")} volume_one = {row.Field<double>("volume_one")}");
+                }
+            }
+            connection.Close();
 
         }
 
