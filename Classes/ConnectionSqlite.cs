@@ -22,15 +22,8 @@ namespace VerificationTask.Classes
          */
         public static double GetIndicationDataByFieldNameAndTableName(string table,string field)
         {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string connectionString = $"Data Source={GetConnectionString()};";
 
-            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
-
-            string dbPath = Path.Combine(projectPath, "utilites.db");
-
-            string connectionString = $"Data Source={dbPath};";
-
-            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
 
             double indications = 0;
 
@@ -57,14 +50,7 @@ namespace VerificationTask.Classes
          * */
         public static double GetIndicationDataByWater(string table)
         {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-
-            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
-
-            string dbPath = Path.Combine(projectPath, "utilites.db");
-
-            string connectionString = $"Data Source={dbPath};";
-            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            string connectionString = $"Data Source={GetConnectionString()};";
 
             double indications = 0;
 
@@ -90,15 +76,7 @@ namespace VerificationTask.Classes
          */
          public static void InserDataByColdWater(ColdWaterSupply coldWaterSupply)
         {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-
-            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
-
-            string dbPath = Path.Combine(projectPath, "utilites.db");
-
-            string connectionString = $"Data Source={dbPath};";
-
-            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            string connectionString = $"Data Source={GetConnectionString()};";
 
             try
             {
@@ -141,16 +119,8 @@ namespace VerificationTask.Classes
         {
             int lastRowID;
 
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string connectionString = $"Data Source={GetConnectionString()};";
 
-            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
-
-            string dbPath = Path.Combine(projectPath, "utilites.db");
-
-            string connectionString = $"Data Source={dbPath};";
-
-            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
-            
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
@@ -186,15 +156,7 @@ namespace VerificationTask.Classes
          */
         public static void InserDataToElecticalEnergy(ElectricalEnergy electricalEnergy)
         {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-
-            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
-
-            string dbPath = Path.Combine(projectPath, "utilites.db");
-
-            string connectionString = $"Data Source={dbPath};";
-
-            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            string connectionString = $"Data Source={GetConnectionString()};";
 
             int lastRowID;
 
@@ -244,15 +206,7 @@ namespace VerificationTask.Classes
         public static void InserDataToAccrual(Accrual accrual)
         {
 
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-
-            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
-
-            string dbPath = Path.Combine(projectPath, "utilites.db");
-
-            string connectionString = $"Data Source={dbPath};";
-
-            //string connectionString = "Data Source=E:\\Projects\\VerificationTask\\utilites.db;";
+            string connectionString = $"Data Source={GetConnectionString()};";
 
             try
             {
@@ -280,6 +234,19 @@ namespace VerificationTask.Classes
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
+        }
+
+        public static string GetConnectionString()
+        {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\.."));
+
+            string dbPath = Path.Combine(projectPath, "utilites.db");
+
+            string connectionString = dbPath;
+
+            return connectionString ;
         }
     }
 }
