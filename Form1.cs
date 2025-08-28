@@ -130,15 +130,6 @@ namespace VerificationTask
             //{
             //    command = new SQLiteCommand(connection)
             //    {
-            //        CommandText = "CREATE TABLE IF NOT EXISTS [Accrual]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
-            //        " [result] REAL NOT NULL," +
-            //        " [cold_water_id] INTEGER  NOT NULL, " +
-            //        " [hot_water_id] INTEGER NOT NULL," +
-            //        " [electrical_id] INTEGER NOT NULL," +
-            //        " FOREIGN KEY (cold_water_id) REFERENCES ColdWater(id)," +
-            //        " FOREIGN KEY (hot_water_id) REFERENCES HotWater(id)," +
-            //        " FOREIGN KEY (electrical_id) REFERENCES ElectricalEnergy(id)" +
-            //        ");"
             //CommandText = "CREATE TABLE IF NOT EXISTS [HotWater]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
             //" [result] REAL NOT NULL," +
             //" [result_tn] REAL NOT NULL," +
@@ -174,6 +165,15 @@ namespace VerificationTask
             //" [count_person] INTEGER NOT NULL ," +
             //" [indications] REAL NOT NULL ," +
             //};
+            //        CommandText = "CREATE TABLE IF NOT EXISTS [Accrual]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
+            //        " [result] REAL NOT NULL," +
+            //        " [cold_water_id] INTEGER  NOT NULL, " +
+            //        " [hot_water_id] INTEGER NOT NULL," +
+            //        " [electrical_id] INTEGER NOT NULL," +
+            //        " FOREIGN KEY (cold_water_id) REFERENCES ColdWater(id)," +
+            //        " FOREIGN KEY (hot_water_id) REFERENCES HotWater(id)," +
+            //        " FOREIGN KEY (electrical_id) REFERENCES ElectricalEnergy(id)" +
+            //        ");"
             //command.ExecuteNonQuery();
             //MessageBox.Show("Таблица софздана");
 
