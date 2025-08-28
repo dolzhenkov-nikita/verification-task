@@ -93,18 +93,18 @@ namespace VerificationTask.Models
             dataGridViewShowResults.Rows.Add();
             dataGridViewShowResults.Rows[5].Cells[0].Value="Электроэнергия день";
             dataGridViewShowResults.Rows[5].Cells[1].Value=this.electricalEnergy.TariffDay;
-            dataGridViewShowResults.Rows[5].Cells[4].Value=this.electricalEnergy.IndicationsDay;
-            dataGridViewShowResults.Rows[5].Cells[5].Value=this.electricalEnergy.ResultDay;
+            dataGridViewShowResults.Rows[5].Cells[5].Value=this.electricalEnergy.IndicationsDay;
+            dataGridViewShowResults.Rows[5].Cells[6].Value=this.electricalEnergy.ResultDay;
 
             dataGridViewShowResults.Rows.Add();
             dataGridViewShowResults.Rows[6].Cells[0].Value="Электроэнергия ночь";
             dataGridViewShowResults.Rows[6].Cells[1].Value=this.electricalEnergy.TariffNight;
-            dataGridViewShowResults.Rows[6].Cells[4].Value=this.electricalEnergy.IndicationsNight;
-            dataGridViewShowResults.Rows[6].Cells[5].Value=this.electricalEnergy.ResultNight;
+            dataGridViewShowResults.Rows[6].Cells[5].Value=this.electricalEnergy.IndicationsNight;
+            dataGridViewShowResults.Rows[6].Cells[6].Value=this.electricalEnergy.ResultNight;
 
             dataGridViewShowResults.Rows.Add();
             dataGridViewShowResults.Rows[7].Cells[0].Value = "ИТОГО";
-            dataGridViewShowResults.Rows[7].Cells[5].Value = this.GetsumAccrual();
+            dataGridViewShowResults.Rows[7].Cells[6].Value = this.GetsumAccrual();
 
 
 
