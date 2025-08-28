@@ -31,13 +31,14 @@ namespace VerificationTask.Models
             /*
              * Указываем количество столбцов и их подписи
              */
-            dataGridViewShowResults.ColumnCount = 6;
+            dataGridViewShowResults.ColumnCount = 7;
             dataGridViewShowResults.Columns[0].Name = "Наименование услуги";
             dataGridViewShowResults.Columns[1].Name = "Тариф";
             dataGridViewShowResults.Columns[2].Name = "Норматив";
-            dataGridViewShowResults.Columns[3].Name = "Количество человек";
-            dataGridViewShowResults.Columns[4].Name = "Показания";
-            dataGridViewShowResults.Columns[5].Name = "Итого";
+            dataGridViewShowResults.Columns[3].Name = "Количество человек первый период";
+            dataGridViewShowResults.Columns[4].Name = "Количество человек второй период";
+            dataGridViewShowResults.Columns[5].Name = "Показания";
+            dataGridViewShowResults.Columns[6].Name = "Итого";
 
             /*
              * Вывожу данные по холодной воде
@@ -47,18 +48,20 @@ namespace VerificationTask.Models
             dataGridViewShowResults.Rows[0].Cells[0].Value="Холодная вода";
             dataGridViewShowResults.Rows[0].Cells[1].Value=this.coldWaterSupply.Gettariff();
             dataGridViewShowResults.Rows[0].Cells[2].Value=this.coldWaterSupply.Getnormativ();
-            dataGridViewShowResults.Rows[0].Cells[3].Value=this.coldWaterSupply.Getcount_person();
-            dataGridViewShowResults.Rows[0].Cells[4].Value=this.coldWaterSupply.Getindications();
-            dataGridViewShowResults.Rows[0].Cells[5].Value=this.coldWaterSupply.Getresult();
+            dataGridViewShowResults.Rows[0].Cells[3].Value=this.coldWaterSupply.GetCountPersonFirst();
+            dataGridViewShowResults.Rows[0].Cells[4].Value=this.coldWaterSupply.GetCountPersonSecond();
+            dataGridViewShowResults.Rows[0].Cells[5].Value=this.coldWaterSupply.Getindications();
+            dataGridViewShowResults.Rows[0].Cells[6].Value=this.coldWaterSupply.Getresult();
 
             /*
              * Вывожу общие данные по горячей воде
               */
             dataGridViewShowResults.Rows.Add();
             dataGridViewShowResults.Rows[1].Cells[0].Value="Горячая вода";
-            dataGridViewShowResults.Rows[1].Cells[3].Value=this.hotWaterSupply.CountPerson;
-            dataGridViewShowResults.Rows[1].Cells[4].Value=this.hotWaterSupply.Indications;
-            dataGridViewShowResults.Rows[1].Cells[5].Value=this.hotWaterSupply.Result;
+            dataGridViewShowResults.Rows[1].Cells[3].Value=this.hotWaterSupply.CountPersonFirst;
+            dataGridViewShowResults.Rows[1].Cells[4].Value=this.hotWaterSupply.CountPersonSecond;
+            dataGridViewShowResults.Rows[1].Cells[5].Value=this.hotWaterSupply.Indications;
+            dataGridViewShowResults.Rows[1].Cells[6].Value=this.hotWaterSupply.Result;
 
             dataGridViewShowResults.Rows.Add();
             dataGridViewShowResults.Rows[2].Cells[0].Value= "ГВС Теплоноситель";
@@ -82,9 +85,10 @@ namespace VerificationTask.Models
             dataGridViewShowResults.Rows[4].Cells[0].Value="Электроэнергия";
             dataGridViewShowResults.Rows[4].Cells[1].Value=this.electricalEnergy.TariffDefault;
             dataGridViewShowResults.Rows[4].Cells[2].Value=this.electricalEnergy.Normativ;
-            dataGridViewShowResults.Rows[4].Cells[3].Value=this.electricalEnergy.CountPerson;
-            dataGridViewShowResults.Rows[4].Cells[4].Value=this.electricalEnergy.IndicationsDefault;
-            dataGridViewShowResults.Rows[4].Cells[5].Value=this.electricalEnergy.Result;
+            dataGridViewShowResults.Rows[4].Cells[3].Value=this.electricalEnergy.CountPersonFirst;
+            dataGridViewShowResults.Rows[4].Cells[4].Value=this.electricalEnergy.CountPersonSecond;
+            dataGridViewShowResults.Rows[4].Cells[5].Value=this.electricalEnergy.IndicationsDefault;
+            dataGridViewShowResults.Rows[4].Cells[6].Value=this.electricalEnergy.Result;
 
             dataGridViewShowResults.Rows.Add();
             dataGridViewShowResults.Rows[5].Cells[0].Value="Электроэнергия день";

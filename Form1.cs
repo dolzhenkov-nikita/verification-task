@@ -13,11 +13,16 @@ namespace VerificationTask
 {
     public partial class FormCalculator : Form
     {
+
+        /*
+         * —оздаем экземпл€р начислений, дл€ св€зывани€ расчетов показаний
+        */
         Accrual accrual = new Accrual();
+
         static SQLiteConnection connection;
         static SQLiteCommand command;
         public FormCalculator()
-        {
+        { 
             InitializeComponent();
         }
 
@@ -28,20 +33,19 @@ namespace VerificationTask
              * ≈сли с формы пришли данные, то конвертируем в целое число
              */
 
-            int personCount = 1;
-            if (textBoxCountPerson.Text.Length > 0)
+            int personCountFirstPeiod = 1;
+            int personCountSecondPeriod = 1;
+            var personCount = new Dictionary<int, int>();
+            if (textBoxCountPersonFirst.Text.Length > 0&&textBoxCountPersonSecond.Text.Length > 0)
             {
-                personCount = Convert.ToInt32(textBoxCountPerson.Text);
+                personCountFirstPeiod = Convert.ToInt32(textBoxCountPersonFirst.Text);
+                personCountSecondPeriod = Convert.ToInt32(textBoxCountPersonSecond.Text);
             }
-
-            /*
-             * —оздаем экземпл€р начислений, дл€ св€зывани€ расчетов показаний
-            */
-
-
+            personCount[1] = personCountFirstPeiod;
+            personCount[2] = personCountSecondPeriod;
             /*
              * —оздаем экземпл€ры дл€ расчетов холодной и гор€чей воды
-             * и электричества
+             * и электричества 
              */
 
             ColdWaterSupply coldWater = new ColdWaterSupply();
@@ -149,7 +153,8 @@ namespace VerificationTask
             //" [normativ_te] REAL ," +
             //" [volume_tn] REAL NOT NULL ," +
             //" [volume_te] REAL NOT NULL ," +
-            //" [count_person] INTEGER NOT NULL ," +
+            //" [count_person_first_period] INTEGER NOT NULL ," +
+            //" [count_person_second_period] INTEGER NOT NULL ," +
             //" [indications] REAL NOT NULL);"
             //CommandText = "CREATE TABLE IF NOT EXISTS [ElecticalEnergy]([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
             //" [result] REAL NOT NULL," +
@@ -162,7 +167,8 @@ namespace VerificationTask
             //" [volume] REAL NOT NULL ," +
             //" [volume_day] REAL NOT NULL ," +
             //" [volume_night] REAL NOT NULL ," +
-            //" [count_person] INTEGER NOT NULL ," +
+            //" [count_person_first_period] INTEGER NOT NULL ," +
+            //" [count_person_second_period] INTEGER NOT NULL ," +
             //" [indications_default] REAL NOT NULL ," +
             //" [indications_day] REAL NOT NULL ," +
             //" [indications_night] REAL NOT NULL);"
@@ -171,7 +177,8 @@ namespace VerificationTask
             //" [tariff] REAL ," +
             //" [normativ] REAL ," +
             //" [volume] REAL NOT NULL ," +
-            //" [count_person] INTEGER NOT NULL ," +
+            //" [count_person_first_period] INTEGER NOT NULL ," +
+            //" [count_person_second_period] INTEGER NOT NULL ," +
             //" [indications] REAL NOT NULL ," +
             //};
             //command.ExecuteNonQuery();
@@ -263,7 +270,7 @@ namespace VerificationTask
             textBoxCounterEENight.Clear();
             textBoxCounterGBC.Clear();
             textBoxCounterHBC.Clear();
-            textBoxCountPerson.Clear();
+            textBoxCountPersonFirst.Clear();
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
@@ -274,7 +281,7 @@ namespace VerificationTask
             textBoxCounterEENight.Clear();
             textBoxCounterGBC.Clear();
             textBoxCounterHBC.Clear();
-            textBoxCountPerson.Clear();
+            textBoxCountPersonFirst.Clear();
         }
 
         private void textBoxCounterHBC_TextChanged(object sender, EventArgs e)

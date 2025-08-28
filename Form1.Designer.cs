@@ -34,7 +34,7 @@
             labelCountersGBC = new Label();
             textBoxCounterEE = new TextBox();
             labelCountersEE = new Label();
-            textBoxCountPerson = new TextBox();
+            textBoxCountPersonFirst = new TextBox();
             labelCountPerson = new Label();
             textBoxCounterEENight = new TextBox();
             label2 = new Label();
@@ -44,6 +44,8 @@
             buttonReset = new Button();
             buttonSave = new Button();
             label3 = new Label();
+            textBoxCountPersonSecond = new TextBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewShowResults).BeginInit();
             SuspendLayout();
             // 
@@ -110,25 +112,25 @@
             labelCountersEE.TabIndex = 4;
             labelCountersEE.Text = "Показания по ЭЭ";
             // 
-            // textBoxCountPerson
+            // textBoxCountPersonFirst
             // 
-            textBoxCountPerson.Font = new Font("Times New Roman", 15.75F);
-            textBoxCountPerson.Location = new Point(291, 54);
-            textBoxCountPerson.Name = "textBoxCountPerson";
-            textBoxCountPerson.PlaceholderText = "1";
-            textBoxCountPerson.Size = new Size(236, 32);
-            textBoxCountPerson.TabIndex = 7;
-            textBoxCountPerson.KeyPress += textBoxCountPerson_KeyPress;
+            textBoxCountPersonFirst.Font = new Font("Times New Roman", 15.75F);
+            textBoxCountPersonFirst.Location = new Point(266, 54);
+            textBoxCountPersonFirst.Name = "textBoxCountPersonFirst";
+            textBoxCountPersonFirst.PlaceholderText = "1";
+            textBoxCountPersonFirst.Size = new Size(236, 32);
+            textBoxCountPersonFirst.TabIndex = 7;
+            textBoxCountPersonFirst.KeyPress += textBoxCountPerson_KeyPress;
             // 
             // labelCountPerson
             // 
             labelCountPerson.AutoSize = true;
             labelCountPerson.Font = new Font("Times New Roman", 15.75F);
-            labelCountPerson.Location = new Point(37, 40);
+            labelCountPerson.Location = new Point(12, 40);
             labelCountPerson.Name = "labelCountPerson";
             labelCountPerson.Size = new Size(248, 46);
             labelCountPerson.TabIndex = 6;
-            labelCountPerson.Text = "Количество проживающих\r\nв помещении";
+            labelCountPerson.Text = "Количество проживающих\r\nс 1 по 15 число";
             // 
             // textBoxCounterEENight
             // 
@@ -176,7 +178,7 @@
             // 
             dataGridViewShowResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewShowResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewShowResults.Location = new Point(12, 12);
+            dataGridViewShowResults.Location = new Point(7, 12);
             dataGridViewShowResults.Name = "dataGridViewShowResults";
             dataGridViewShowResults.Size = new Size(1032, 377);
             dataGridViewShowResults.TabIndex = 15;
@@ -214,11 +216,30 @@
             label3.TabIndex = 14;
             label3.Text = "Для показаний по общему тарифу\r\nДля дневных если заполнен ночной тариф";
             // 
+            // textBoxCountPersonSecond
+            // 
+            textBoxCountPersonSecond.Font = new Font("Times New Roman", 15.75F);
+            textBoxCountPersonSecond.Location = new Point(803, 54);
+            textBoxCountPersonSecond.Name = "textBoxCountPersonSecond";
+            textBoxCountPersonSecond.PlaceholderText = "1";
+            textBoxCountPersonSecond.Size = new Size(236, 32);
+            textBoxCountPersonSecond.TabIndex = 18;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Times New Roman", 15.75F);
+            label4.Location = new Point(538, 40);
+            label4.Name = "label4";
+            label4.Size = new Size(248, 46);
+            label4.TabIndex = 19;
+            label4.Text = "Количество проживающих\r\nс 16 по 31 число";
+            // 
             // FormCalculator
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1070, 456);
+            ClientSize = new Size(1048, 450);
             Controls.Add(buttonSave);
             Controls.Add(buttonReset);
             Controls.Add(dataGridViewShowResults);
@@ -226,7 +247,7 @@
             Controls.Add(buttonCalculateHBC);
             Controls.Add(textBoxCounterEENight);
             Controls.Add(label2);
-            Controls.Add(textBoxCountPerson);
+            Controls.Add(textBoxCountPersonFirst);
             Controls.Add(labelCountPerson);
             Controls.Add(textBoxCounterEE);
             Controls.Add(labelCountersEE);
@@ -235,6 +256,8 @@
             Controls.Add(textBoxCounterHBC);
             Controls.Add(labelCountersHBC);
             Controls.Add(label3);
+            Controls.Add(label4);
+            Controls.Add(textBoxCountPersonSecond);
             Name = "FormCalculator";
             Text = "Расчет коммунальных услуг";
             Load += FormCalculator_Load;
@@ -251,7 +274,7 @@
         private Label labelCountersGBC;
         private TextBox textBoxCounterEE;
         private Label labelCountersEE;
-        private TextBox textBoxCountPerson;
+        private TextBox textBoxCountPersonFirst;
         private Label labelCountPerson;
         private TextBox textBoxCounterEENight;
         private Label label2;
@@ -261,5 +284,7 @@
         private Button buttonReset;
         private Button buttonSave;
         private Label label3;
+        private TextBox textBoxCountPersonSecond;
+        private Label label4;
     }
 }

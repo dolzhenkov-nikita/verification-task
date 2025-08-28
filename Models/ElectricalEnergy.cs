@@ -22,7 +22,8 @@ namespace VerificationTask.Models
        public double Volume { get; set; }
        public double VolumeDay { get; set; }
        public double VolumeNight { get; set; }
-       public int CountPerson { get; set; }
+       public int CountPersonFirst { get; set; }
+       public int CountPersonSecond { get; set; }
        public double IndicationsDefault { get; set; }
        public double IndicationsDay { get; set; }
        public double IndicationsNight { get; set; }
@@ -30,7 +31,7 @@ namespace VerificationTask.Models
         /*
          * Расчитываем опату электроэнергии
          * */
-        public void getResult(int personCount, string indicationsFormDay, string indicationsFormNight)
+        public void getResult(Dictionary<int,int> personCount, string indicationsFormDay, string indicationsFormNight)
         {
 
             double indications = 0.0;
@@ -98,11 +99,12 @@ namespace VerificationTask.Models
             {
                 double oldIndication = ConnectionSqlite.GetIndicationDataByFieldNameAndTableName("ElectricalEnergy", "indications_default");
 
-                Volume = personCount * Normativ;
+                Volume = personCount[1] * Normativ+ personCount[2] * Normativ;
                 Result = CalculationAccrual.getCost(Volume, TariffEnum.EE_DEFAULT);
             }
 
-            this.CountPerson = (personCount);
+            this.CountPersonFirst = (personCount[1]);
+            this.CountPersonSecond = (personCount[2]);
             this.TariffDefault = (TariffEnums.getDoubleValueTariffEnum(TariffEnum.EE_DEFAULT));
             this.TariffDay = (TariffEnums.getDoubleValueTariffEnum(TariffEnum.EE_DAY));
             this.TariffNight = (TariffEnums.getDoubleValueTariffEnum(TariffEnum.EE_NIGHT));

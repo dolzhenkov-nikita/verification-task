@@ -21,7 +21,8 @@ namespace VerificationTask.Models
         public double NormativTE { get; set; }
         public double VolumeTN { get; set; }
         public double VolumeTE { get; set; }
-        public int CountPerson { get; set; }
+        public int CountPersonFirst { get; set; }
+        public int CountPersonSecond { get; set; }
         public double Indications { get; set; }
 
         /*
@@ -38,7 +39,7 @@ namespace VerificationTask.Models
 
             return VolumeTE;
         }
-        public double getVolumeTN(int personCount, string indicationsForm)
+        public double getVolumeTN(Dictionary<int,int> personCount, string indicationsForm)
         {
             double result = 0.0;
             double newIndications = 0.0;
@@ -52,7 +53,7 @@ namespace VerificationTask.Models
 
             if (indications == 0.0)
             {
-                VolumeTN = personCount * normative_tn;
+                VolumeTN = personCount[1] * normative_tn+ personCount[2] * normative_tn;
             }
             else
             {
@@ -61,7 +62,8 @@ namespace VerificationTask.Models
                 VolumeTN = newIndications;
 
             }
-            this.CountPerson=(personCount);
+            this.CountPersonFirst = (personCount[1]);
+            this.CountPersonSecond = (personCount[2]);
             this.NormativTN=(normative_tn);
             this.TariffTN=(TariffEnums.getDoubleValueTariffEnum(TariffEnum.GBC_HEAR_CARRIER));
             this.Indications=(indications);

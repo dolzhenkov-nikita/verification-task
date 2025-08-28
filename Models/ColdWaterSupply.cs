@@ -17,13 +17,14 @@ namespace VerificationTask.Models
         private double tariff;
         private double normativ;
         private double volume;
-        private int count_person;
+        private int count_person_first;
+        private int count_person_second;
         private double indications;
 
         /*
          * Расчет обьема потребления
          * */
-        public double getVolume(int personCount, string indicationsForm)
+        public double getVolume(Dictionary<int,int> personCount, string indicationsForm)
         {
             double result = 0.0;
             double newIndications = 0;
@@ -37,15 +38,15 @@ namespace VerificationTask.Models
             }
             if (indications == 0)
             {
-                result = personCount * normative;
+                result = personCount[1] * normative+ personCount[2] * normative;
             }
             else
             {
                 newIndications = indications - oldIndications;
                 result = newIndications;
-
             }
-            this.Setcount_person(personCount);
+            this.SetCountPersonFirst(personCount[1]);
+            this.SetCountPersonSecond(personCount[2]);
             this.Setnormativ(normative);
             this.Settariff(TariffEnums.getDoubleValueTariffEnum(TariffEnum.HBC));
             this.Setvolume(result);
@@ -102,14 +103,23 @@ namespace VerificationTask.Models
             volume = value;
         }
 
-        public int Getcount_person()
+        public int GetCountPersonFirst()
         {
-            return count_person;
+            return count_person_first;
         }
 
-        public void Setcount_person(int value)
+        public void SetCountPersonFirst(int value)
         {
-            count_person = value;
+            count_person_first = value;
+        }
+        public int GetCountPersonSecond()
+        {
+            return count_person_second;
+        }
+
+        public void SetCountPersonSecond(int value)
+        {
+            count_person_second = value;
         }
 
         public double Getindications()

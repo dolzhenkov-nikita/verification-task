@@ -84,8 +84,8 @@ namespace VerificationTask.Classes
                 {
                     int lastRowID;
                     connection.Open();
-                    string insertSql = "INSERT INTO ColdWater ( result, tariff,normativ, volume,count_person, indications) " +
-                                      "VALUES ( @result, @tariff, @normativ, @volume, @count_person, @indications)";
+                    string insertSql = "INSERT INTO ColdWater ( result, tariff,normativ, volume,count_person_first_period,count_person_second_period, indications) " +
+                                      "VALUES ( @result, @tariff, @normativ, @volume, @count_person_first_period,@count_person_second_period, @indications)";
 
                     using (var command = new SqliteCommand(insertSql, connection))
                     {
@@ -93,7 +93,8 @@ namespace VerificationTask.Classes
                         command.Parameters.AddWithValue("@tariff", coldWaterSupply.Gettariff());
                         command.Parameters.AddWithValue("@normativ", coldWaterSupply.Getnormativ());
                         command.Parameters.AddWithValue("@volume", coldWaterSupply.Getvolume());
-                        command.Parameters.AddWithValue("@count_person", coldWaterSupply.Getcount_person());
+                        command.Parameters.AddWithValue("@count_person_first_period", coldWaterSupply.GetCountPersonFirst());
+                        command.Parameters.AddWithValue("@count_person_second_period", coldWaterSupply.GetCountPersonSecond());
                         command.Parameters.AddWithValue("@indications", coldWaterSupply.Getindications());
 
                         command.ExecuteNonQuery();
@@ -124,8 +125,8 @@ namespace VerificationTask.Classes
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
-                string insertSql = "INSERT INTO HotWater ( result,result_tn,result_te, tariff_tn,tariff_te,normativ_tn,normativ_te, volume_tn,volume_te,count_person, indications) " +
-                                  "VALUES ( @result,@result_tn,@result_te ,@tariff_tn,@tariff_te, @normativ_tn,@normativ_te, @volume_tn,@volume_te, @count_person, @indications)";
+                string insertSql = "INSERT INTO HotWater ( result,result_tn,result_te, tariff_tn,tariff_te,normativ_tn,normativ_te, volume_tn,volume_te,count_person_first_period,count_person_second_period, indications) " +
+                                  "VALUES ( @result,@result_tn,@result_te ,@tariff_tn,@tariff_te, @normativ_tn,@normativ_te, @volume_tn,@volume_te, @count_person_first_period,@count_person_second_period, @indications)";
 
                 using (var command = new SqliteCommand(insertSql, connection))
                 {
@@ -138,7 +139,8 @@ namespace VerificationTask.Classes
                     command.Parameters.AddWithValue("@normativ_te", hotWaterSupply.NormativTE);
                     command.Parameters.AddWithValue("@volume_tn", hotWaterSupply.VolumeTN);
                     command.Parameters.AddWithValue("@volume_te", hotWaterSupply.VolumeTE);
-                    command.Parameters.AddWithValue("@count_person", hotWaterSupply.CountPerson);
+                    command.Parameters.AddWithValue("@count_person_first_period", hotWaterSupply.CountPersonFirst);
+                    command.Parameters.AddWithValue("@count_person_second_period", hotWaterSupply.CountPersonSecond);
                     command.Parameters.AddWithValue("@indications", hotWaterSupply.Indications);
 
                     command.ExecuteNonQuery();
@@ -166,13 +168,13 @@ namespace VerificationTask.Classes
                 string insertSql = "INSERT INTO ElectricalEnergy ( result, result_day,result_night," +
                                                                 "tariff_default,tariff_day, tariff_night," +
                                                                 "normativ,volume, volume_day," +
-                                                                "volume_night,count_person,indications_default," +
+                                                                "volume_night,count_person_first_period,count_person_second_period,indications_default," +
                                                                 "indications_day,indications_night) " +
 
                                                                 "VALUES ( @result, @result_day,@result_night," +
                                                                 "@tariff_default,@tariff_day, @tariff_night," +
                                                                 "@normativ,@volume, @volume_day," +
-                                                                "@volume_night,@count_person,@indications_default," +
+                                                                "@volume_night,@count_person_first_period,@count_person_second_period,@indications_default," +
                                                                 "@indications_day,@indications_night)";
 
                 using (var command = new SqliteCommand(insertSql, connection))
@@ -187,7 +189,8 @@ namespace VerificationTask.Classes
                     command.Parameters.AddWithValue("@volume", electricalEnergy.Volume);
                     command.Parameters.AddWithValue("@volume_day", electricalEnergy.VolumeDay);
                     command.Parameters.AddWithValue("@volume_night", electricalEnergy.VolumeNight);
-                    command.Parameters.AddWithValue("@count_person", electricalEnergy.CountPerson);
+                    command.Parameters.AddWithValue("@count_person_first_period", electricalEnergy.CountPersonFirst);
+                    command.Parameters.AddWithValue("@count_person_second_period", electricalEnergy.CountPersonSecond);
                     command.Parameters.AddWithValue("@indications_default", electricalEnergy.IndicationsDefault);
                     command.Parameters.AddWithValue("@indications_day", electricalEnergy.IndicationsDay);
                     command.Parameters.AddWithValue("@indications_night", electricalEnergy.IndicationsNight);
